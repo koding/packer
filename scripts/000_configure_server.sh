@@ -35,3 +35,7 @@ sysctl -p /etc/sysctl.d/network.conf
 echo '* - nofile 65535' > /etc/security/limits.d/nofile
 
 echo "127.0.0.1     $HOSTNAME" >> /etc/hosts
+
+mkdir -p /opt
+mkdir -p /etc/sysconfig
+mkdir -p /etc/profile.d
