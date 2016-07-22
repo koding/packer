@@ -5,7 +5,6 @@
     "aws_vpc_id": "{{env `AWS_VPC_ID`}}",
     "aws_subnet_id": "{{env `AWS_SUBNET_ID`}}",
     "source_ami": "ami-1b7bbc76",
-    "source_ami_name": "koding-eb-1466098752",
     "ami_name": "zookeeper",
     "ami_description": "Zookeeper AMI containing exhibitor",
     "region": "us-east-1",
@@ -41,21 +40,35 @@
   "provisioners": [
     {
       "type": "file",
-      "source": "./data",
-      "destination": "/tmp/data"
+      "source": "../scripts",
+      "destination": "/opt/ami-scripts"
+    },
+    {
+      "type": "file",
+      "source": "env.sh",
+      "destination": "/etc/sysconfig/supervisord"
+    },
+    {
+      "type": "file",
+      "source": "supervisord.conf",
+      "destination": "/etc/supervisord.conf"
     },
     {
       "type": "shell",
+      "environment_vars": [
+        "SCRIPTS_DIR=/opt/ami-scripts"
+      ],
       "inline": [
+        "sudo chmod 777 -R /opt/ami-scripts",
         "sudo chmod 777 -R /tmp/data",
-        "sudo /tmp/data/install_base.sh",
-        "sudo /tmp/data/install_app.sh",
-        "sudo mv /tmp/data/supervisord.init /etc/rc.d/init.d/supervisord",
-        "sudo mv /tmp/data/supervisord.conf /etc/supervisord.conf",
-        "sudo mv /tmp/data/env.sh /etc/sysconfig/supervisord",
-        "sudo chmod +x /etc/rc.d/init.d/supervisord",
-        "sudo chkconfig --add supervisord",
-        "rm -rf /tmp/data"
+        "ln -s /etc/sysconfig/supervisord /etc/profile.d/supervisord_envvars.sh",
+        "sudo /opt/ami-scripts/000_configure_server.sh",
+        "sudo /opt/ami-scripts/010_install_utilities.sh",
+        "sudo /opt/ami-scripts/050_install_supervisor.sh",
+        "sudo /opt/ami-scripts/050_install_java.sh",
+        "sudo /opt/ami-scripts/081_install_maven.sh",
+        "sudo /opt/ami-scripts/085_install_zookeeper.sh",
+        "sudo /opt/ami-scripts/086_install_exhibitor.sh"
       ]
     }
   ]
