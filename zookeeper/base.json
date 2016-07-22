@@ -1,0 +1,62 @@
+{
+  "variables": {
+    "aws_access_key": "{{env `AWS_ACCESS_KEY`}}",
+    "aws_secret_key": "{{env `AWS_SECRET_KEY`}}",
+    "aws_vpc_id": "{{env `AWS_VPC_ID`}}",
+    "aws_subnet_id": "{{env `AWS_SUBNET_ID`}}",
+    "source_ami": "ami-1b7bbc76",
+    "source_ami_name": "koding-eb-1466098752",
+    "ami_name": "zookeeper",
+    "ami_description": "Zookeeper AMI containing exhibitor",
+    "region": "us-east-1",
+    "instance_type": "m3.xlarge"
+  },
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "access_key": "{{user `aws_access_key`}}",
+      "secret_key": "{{user `aws_secret_key`}}",
+      "vpc_id": "{{user `aws_vpc_id`}}",
+      "subnet_id": "{{user `aws_subnet_id`}}",
+      "source_ami": "{{user `source_ami`}}",
+      "ami_name": "{{user `ami_name`}}-{{timestamp}}",
+      "ami_description": "{{user `ami_description`}}",
+      "region": "{{user `region`}}",
+      "instance_type": "{{user `instance_type`}}",
+      "ssh_username": "ec2-user",
+      "ssh_timeout": "600s",
+      "associate_public_ip_address": true,
+      "ami_block_device_mappings": [
+        {
+          "device_name": "/dev/xvda",
+          "volume_size": 12,
+          "delete_on_termination": true
+        }
+      ],
+      "tags": {
+        "Name": "{{user `ami_name`}}-{{timestamp}}"
+      }
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "./data",
+      "destination": "/tmp/data"
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "sudo chmod 777 -R /tmp/data",
+        "sudo /tmp/data/install_base.sh",
+        "sudo /tmp/data/install_app.sh",
+        "sudo mv /tmp/data/supervisord.init /etc/rc.d/init.d/supervisord",
+        "sudo mv /tmp/data/supervisord.conf /etc/supervisord.conf",
+        "sudo mv /tmp/data/env.sh /etc/sysconfig/supervisord",
+        "sudo chmod +x /etc/rc.d/init.d/supervisord",
+        "sudo chkconfig --add supervisord",
+        "rm -rf /tmp/data"
+      ]
+    }
+  ]
+}
