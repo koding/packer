@@ -6,8 +6,6 @@ source $(dirname $0)/export_env_vars.sh
 
 # node.js
 
-$YUM --enablerepo=epel install nodejs-$NODE_VERSION
-
 ## npm
 
 $YUM --enablerepo=epel install npm

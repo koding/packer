@@ -45,8 +45,33 @@
     },
     {
       "type": "shell",
-      "script": "provision.sh",
-      "execute_command": "{{ .Vars }} sudo -E '{{ .Path }}'"
+      "inline": [
+        "sudo mkdir -p /opt",
+        "sudo mkdir -p /etc/sysconfig",
+        "sudo mkdir -p /etc/profile.d"
+      ],
+      "skip_clean": true
+    },
+    {
+      "type": "file",
+      "source": "../scripts",
+      "destination": "/tmp/ami-scripts"
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "sudo mv /tmp/ami-scripts /opt/ami-scripts",
+        "sudo /opt/ami-scripts/000_configure_server.sh",
+        "sudo /opt/ami-scripts/010_install_utilities.sh",
+        "sudo /opt/ami-scripts/020_install_nginx.sh",
+        "sudo /opt/ami-scripts/030_install_node.sh",
+        "sudo /opt/ami-scripts/040_install_go.sh",
+        "sudo /opt/ami-scripts/050_install_pip.sh",
+        "sudo /opt/ami-scripts/050_install_supervisor.sh",
+        "sudo /opt/ami-scripts/060_install_misc.sh",
+        "sudo /opt/ami-scripts/070_install_papertrail.sh"
+      ],
+      "skip_clean": true
     },
     {
       "type": "shell",
