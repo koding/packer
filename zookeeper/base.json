@@ -44,7 +44,8 @@
         "sudo mkdir -p /opt",
         "sudo mkdir -p /etc/sysconfig",
         "sudo mkdir -p /etc/profile.d"
-      ]
+      ],
+      "skip_clean": true
     },
     {
       "type": "file",
@@ -77,8 +78,9 @@
         "sudo /opt/ami-scripts/081_install_maven.sh",
         "sudo /opt/ami-scripts/085_install_zookeeper.sh",
         "sudo /opt/ami-scripts/086_install_exhibitor.sh",
-        "ln -s /etc/sysconfig/supervisord /etc/profile.d/supervisord_envvars.sh"
-      ]
+        "sudo ln -s /etc/sysconfig/supervisord /etc/profile.d/supervisord_envvars.sh"
+      ],
+      "skip_clean": true
     }
   ]
 }
