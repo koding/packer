@@ -2,7 +2,7 @@
 
 source /etc/profile
 
-for i in $(dirname $0)/env/*.sh ; do
+for i in /opt/ami-scripts/env/*.sh ; do
     if [ -r "$i" ]; then
         if [ "${-#*i}" != "$-" ]; then
             . "$i"
