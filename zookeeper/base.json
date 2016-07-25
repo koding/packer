@@ -77,8 +77,7 @@
         "sudo /opt/ami-scripts/080_install_java.sh",
         "sudo /opt/ami-scripts/081_install_maven.sh",
         "sudo /opt/ami-scripts/085_install_zookeeper.sh",
-        "sudo /opt/ami-scripts/086_install_exhibitor.sh",
-        "sudo ln -s /etc/sysconfig/supervisord /etc/profile.d/supervisord_envvars.sh"
+        "sudo /opt/ami-scripts/086_install_exhibitor.sh"
       ],
       "skip_clean": true
     }
