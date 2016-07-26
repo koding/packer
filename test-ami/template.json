@@ -57,11 +57,7 @@
     {
       "type": "shell",
       "script": "setup-koding.sh",
-      "execute_command": "{{ .Vars }} sudo -E '{{ .Path }}'",
-      "environment_vars": [
-        "CI=true",
-        "wercker=true"
-      ]
+      "execute_command": "{{ .Vars }} sudo -E '{{ .Path }}'"
     }
   ]
 }
