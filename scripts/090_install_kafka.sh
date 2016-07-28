@@ -18,6 +18,10 @@ groupadd -r $KAFKA_USER
 useradd -g $KAFKA_USER -M -r $KAFKA_USER
 
 # set permissions for kafka
+mkdir -p $KAFKA_HOME
+mkdir -p $KAFKA_LIB_DIR
+mkdir -p $KAFKA_LOG_DIR
+
 chown -R $KAFKA_USER:$KAFKA_USER $KAFKA_HOME
 chown -R $KAFKA_USER:$KAFKA_USER $KAFKA_LIB_DIR
 chown -R $KAFKA_USER:$KAFKA_USER $KAFKA_LOG_DIR
