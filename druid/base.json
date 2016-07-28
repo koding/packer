@@ -1,0 +1,84 @@
+{
+  "variables": {
+    "aws_access_key": "{{env `AWS_ACCESS_KEY`}}",
+    "aws_secret_key": "{{env `AWS_SECRET_KEY`}}",
+    "aws_vpc_id": "{{env `AWS_VPC_ID`}}",
+    "aws_subnet_id": "{{env `AWS_SUBNET_ID`}}",
+    "source_ami": "ami-1b7bbc76",
+    "ami_name": "druid",
+    "ami_description": "Druid AMI containing all kind of binaries",
+    "region": "us-east-1",
+    "instance_type": "m3.xlarge"
+  },
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "access_key": "{{user `aws_access_key`}}",
+      "secret_key": "{{user `aws_secret_key`}}",
+      "vpc_id": "{{user `aws_vpc_id`}}",
+      "subnet_id": "{{user `aws_subnet_id`}}",
+      "source_ami": "{{user `source_ami`}}",
+      "ami_name": "{{user `ami_name`}}-{{timestamp}}",
+      "ami_description": "{{user `ami_description`}}",
+      "region": "{{user `region`}}",
+      "instance_type": "{{user `instance_type`}}",
+      "ssh_username": "ec2-user",
+      "ssh_timeout": "600s",
+      "associate_public_ip_address": true,
+      "ami_block_device_mappings": [
+        {
+          "device_name": "/dev/xvda",
+          "volume_size": 12,
+          "delete_on_termination": true
+        }
+      ],
+      "tags": {
+        "Name": "{{user `ami_name`}}-{{timestamp}}"
+      }
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+        "sudo mkdir -p /opt",
+        "sudo mkdir -p /etc/sysconfig",
+        "sudo mkdir -p /etc/profile.d"
+      ],
+      "skip_clean": true
+    },
+    {
+      "type": "file",
+      "source": "../scripts",
+      "destination": "/tmp/ami-scripts"
+    },
+    {
+      "type": "file",
+      "source": "supervisord_env.sh",
+      "destination": "/tmp/supervisord_env.sh"
+    },
+    {
+      "type": "file",
+      "source": "supervisord.conf",
+      "destination": "/tmp/supervisord.conf"
+    },
+    {
+      "type": "shell",
+      "environment_vars": [
+        "SCRIPTS_DIR=/opt/ami-scripts"
+      ],
+      "inline": [
+        "sudo mv /tmp/ami-scripts /opt/ami-scripts",
+        "sudo mv /tmp/supervisord_env.sh /etc/sysconfig/supervisord",
+        "sudo mv /tmp/supervisord.conf /etc/supervisord.conf",
+        "sudo /opt/ami-scripts/000_configure_server.sh",
+        "sudo /opt/ami-scripts/010_install_utilities.sh",
+        "sudo /opt/ami-scripts/050_install_supervisor.sh",
+        "sudo /opt/ami-scripts/080_install_java.sh",
+        "sudo /opt/ami-scripts/081_install_maven.sh",
+        "sudo /opt/ami-scripts/085_install_druid.sh"
+      ],
+      "skip_clean": true
+    }
+  ]
+}
