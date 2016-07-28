@@ -36,7 +36,3 @@ export KAFKA_JVM_PERFORMANCE_OPTS="-server -XX:+UseCompressedOops -XX:+UseParNew
 export KAFKA_LOG4J_OPTS="-Dlog4j.configuration=file:/opt/kafka/config/log4j.properties"
 
 export JMX_PORT=9999
-
-# not sure if this is a good place
-sed "s/broker.id=0/broker.id=$KAFKA_BROKER_ID/g" $KAFKA_CONFIG_FILE > $KAFKA_CONFIG_FILE || echo $KAFKA_CONFIG_FILE
-sed "s/localhost:2181/${ZOOKEEPER_CONN_STR}/g" $KAFKA_CONFIG_FILE > $KAFKA_CONFIG_FILE || echo $KAFKA_CONFIG_FILE
