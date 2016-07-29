@@ -16,6 +16,7 @@ $YUM install which
 $YUM install htop
 $YUM install sysstat
 $YUM install dstat
+$YUM install jq # json parser
 
 # Version controlling packages
 

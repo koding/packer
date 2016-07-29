@@ -6,6 +6,8 @@ source $(dirname $0)/export_env_vars.sh
 
 $(dirname $0)/050_install_pip.sh
 
+source /etc/profile
+
 pip install supervisor==$SUPERVISORD_VERSION
 
 mkdir -p /var/log/supervisord/
