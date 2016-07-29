@@ -73,6 +73,7 @@
         "sudo mv /tmp/supervisord.conf /etc/supervisord.conf",
         "sudo /opt/ami-scripts/000_configure_server.sh",
         "sudo /opt/ami-scripts/010_install_utilities.sh",
+        "sudo /opt/ami-scripts/050_install_pip.sh",
         "sudo /opt/ami-scripts/050_install_supervisor.sh",
         "sudo /opt/ami-scripts/080_install_java.sh",
         "sudo /opt/ami-scripts/091_install_druid.sh"
