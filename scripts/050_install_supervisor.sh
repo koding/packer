@@ -6,7 +6,7 @@ source $(dirname $0)/export_env_vars.sh
 
 source /etc/profile
 
-pip install supervisor==$SUPERVISORD_VERSION
+python -m pip install supervisor==$SUPERVISORD_VERSION
 
 mkdir -p /var/log/supervisord/
 mkdir -p /etc/sysconfig/
