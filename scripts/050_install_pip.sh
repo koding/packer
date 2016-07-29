@@ -10,3 +10,9 @@ $YUM install python-pip || echo python-pip installed
 $YUM install python-devel || echo python-devel installed
 
 pip install --upgrade pip
+
+echo "export PATH=/usr/local/bin:\$PATH" > /etc/profile.d/local_bin.sh
+
+source /etc/profile
+
+pip --version
