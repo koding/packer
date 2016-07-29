@@ -4,7 +4,7 @@
     "aws_secret_key": "{{env `AWS_SECRET_KEY`}}",
     "aws_vpc_id": "{{env `AWS_VPC_ID`}}",
     "aws_subnet_id": "{{env `AWS_SUBNET_ID`}}",
-    "source_ami": "ami-23c6fb49",
+    "source_ami": "ami-f60d8ee1",
     "ami_name": "zookeeper",
     "ami_description": "Zookeeper AMI containing exhibitor",
     "region": "us-east-1",
