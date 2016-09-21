@@ -60,7 +60,7 @@ apt-get install -y nodejs
 
 ## Update npm
 
-npm install --global npm@2.9.1
+npm install --global npm@2.15
 
 
 ## Install CoffeeScript modules
