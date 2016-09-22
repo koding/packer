@@ -8,8 +8,6 @@ PROVISION_USER=$SUDO_USER
 
 ## Add third party repositories
 
-add-apt-repository -y ppa:chris-lea/node.js
-
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 echo 'deb http://dl.google.com/linux/chrome/deb/ stable main' > /etc/apt/sources.list.d/google.list
 
@@ -67,13 +65,17 @@ ln --force --symbolic /opt/firefox/firefox /usr/bin/firefox
 
 # Install node.js
 
-apt-get install -y nodejs
+NODE_VERSION="v6.9.4"
+NODE_NAME="node-$NODE_VERSION-linux-x64"
+NODE_URL="https://nodejs.org/dist/$NODE_VERSION/$NODE_NAME.tar.xz"
 
+curl --silent $NODE_URL | \
+  tar --extract --xz --strip-components=1 --directory /usr/local \
+      $NODE_NAME/{bin,include,lib,share}
 
 ## Update npm
 
-npm install --global npm@2.15
-
+npm install --global npm@4.*
 
 ## Install CoffeeScript modules
 

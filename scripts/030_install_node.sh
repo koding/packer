@@ -6,9 +6,10 @@ source $(dirname $0)/export_env_vars.sh
 
 # node.js
 
-## npm
+curl --silent $NODE_URL | tar --extract --xz --directory /usr/local
+ln --symbolic /usr/local/$NODE_NAME/bin/* /usr/local/bin/
 
-$YUM --enablerepo=epel install npm
+## npm
 
 npm install --global npm@$NPM_VERSION
 
