@@ -9,10 +9,10 @@ $YUM install python26-pip || echo python26-pip installed
 $YUM install python-pip || echo python-pip installed
 $YUM install python-devel || echo python-devel installed
 
-pip install --upgrade pip==$PIP_VERSION
+source /etc/profile
+
+python -m pip install pip==$PIP_VER --upgrade
 
 echo "export PATH=/usr/local/bin:\$PATH" > /etc/profile.d/local_bin.sh
 
 source /etc/profile
-
-pip --version
