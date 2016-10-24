@@ -1,12 +1,12 @@
 {
-  "aws_access_key": "aws_access_key",
-  "aws_secret_key": "aws_secret_key",
-  "aws_region": "us-east-1",
-  "aws_vpc_id": "aws_vpc_id",
-  "aws_subnet_id": "aws_subnet_id",
-  "aws_source_ami": "aws_source_ami",
+  "aws_access_key": "",
+  "aws_secret_key": "",
+  "aws_vpc_id": "vpc-cb2fa0ae",
+  "aws_region": "us-west-1",
+  "aws_subnet_id": "subnet-6444f43d",
+  "aws_source_ami": "ami-6d064d0d",
   "aws_instance_type": "m4.large",
   "ssh_username": "ubuntu",
   "aws_ami_name": "test",
-  "dot_ssh_folder_path": "../../backup/.ssh/"
+  "dot_ssh_folder_path": "../koding/credential/scripts/test-ami/.ssh-2016-06"
 }
