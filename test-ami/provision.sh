@@ -31,6 +31,7 @@ apt-get install -y build-essential git-core
 apt-get install -y rlwrap libev-dev libev4 libxml2-dev libssl-dev
 apt-get install -y libgif-dev libjpeg-dev libcairo2-dev graphicsmagick
 apt-get install -y python-pip
+apt-get install -y redis-tools
 
 ## nginx
 
