@@ -4,7 +4,7 @@
   "aws_vpc_id": "vpc-cb2fa0ae",
   "aws_region": "us-west-1",
   "aws_subnet_id": "subnet-6444f43d",
-  "aws_source_ami": "ami-6d064d0d",
+  "aws_source_ami": "ami-be064dde",
   "aws_instance_type": "m4.large",
   "ssh_username": "ubuntu",
   "aws_ami_name": "test",
