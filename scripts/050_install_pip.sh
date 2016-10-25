@@ -8,10 +8,11 @@ source $(dirname $0)/export_env_vars.sh
 $YUM install python26-pip || echo python26-pip installed
 $YUM install python-pip || echo python-pip installed
 $YUM install python-devel || echo python-devel installed
+$YUM install python-setuptools || echo python-setuptools installed
 
 source /etc/profile
 
-python -m pip install pip==$PIP_VER --upgrade
+easy_install --upgrade pip==$PIP_VER
 
 echo "export PATH=/usr/local/bin:\$PATH" > /etc/profile.d/local_bin.sh
 
