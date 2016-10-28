@@ -54,6 +54,11 @@ pip install supervisor
 pip install s3cmd
 
 
+## firefox
+
+wget -O /tmp/firefox.deb https://sourceforge.net/projects/ubuntuzilla/files/mozilla/apt/pool/main/f/firefox-mozilla-build/firefox-mozilla-build_48.0.2-0ubuntu1_amd64.deb/download
+dpkg --install /tmp/firefox.deb
+
 # Install node.js
 
 apt-get install -y nodejs
@@ -87,7 +92,6 @@ usermod -aG docker $PROVISION_USER
 
 apt-get install -y xvfb xfonts-75dpi xfonts-100dpi xfonts-scalable xfonts-cyrillic
 apt-get install -y openjdk-7-jre-headless
-apt-get install -y firefox
 apt-get install -y google-chrome-stable
 
 npm install --global nightwatch
