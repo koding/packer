@@ -31,7 +31,7 @@ zoo-cfg-extra=tickTime\=2000&initLimit\=10&syncLimit\=5&quorumListenOnAllIPs\=tr
 auto-manage-instances-settling-period-ms=0
 auto-manage-instances=1
 auto-manage-instances-fixed-ensemble-size=$ZK_ENSEMBLE_SIZE
-backup-extra=throttle\=&bucket-name\=$EXBT_S3_BUCKET&key-prefix\=$EXBT_S3_BACKUP_PREFIX&max-retries\=4&retry-sleep-ms\=30000
+backup-extra=throttle\=&max-retries\=4&retry-sleep-ms\=30000
 EOF
 
 cat <<-EOF >$EXBT_HOME/credentials.properties
