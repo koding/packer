@@ -21,5 +21,3 @@ $YUM install jq # json parser
 # Version controlling packages
 
 $YUM install git patch
-
-

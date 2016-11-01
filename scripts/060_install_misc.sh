@@ -9,4 +9,3 @@ source $(dirname $0)/export_env_vars.sh
 $YUM install graphviz
 
 pip install psutil superlance
-

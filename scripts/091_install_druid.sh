@@ -4,11 +4,9 @@ set -o errexit
 
 source $(dirname $0)/export_env_vars.sh
 
-
 wget -q $DRUID_RELEASE -O /tmp/druid.tar.gz
 tar xfz /tmp/druid.tar.gz -C /opt
 mv /opt/druid-* $DRUID_HOME
-
 
 groupadd -r $DRUID_USER
 useradd -g $DRUID_USER -M -r $DRUID_USER

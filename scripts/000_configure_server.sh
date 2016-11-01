@@ -12,12 +12,11 @@ $YUM upgrade
 
 ln -fs /usr/share/zoneinfo/UTC /etc/localtime
 
-
 ## Kernel parameters
 
 ### Network
 
-cat - > /etc/sysctl.d/network.conf <<EOF
+cat - >/etc/sysctl.d/network.conf <<EOF
 # Recycle network sockets in TIME_WAIT state
 net.ipv4.tcp_tw_recycle = 1
 
@@ -32,9 +31,9 @@ sysctl -p /etc/sysctl.d/network.conf
 
 ## ulimit
 
-echo '* - nofile 65535' > /etc/security/limits.d/nofile
+echo '* - nofile 65535' >/etc/security/limits.d/nofile
 
-echo "127.0.0.1     $HOSTNAME" >> /etc/hosts
+echo "127.0.0.1     $HOSTNAME" >>/etc/hosts
 
 mkdir -p /opt
 mkdir -p /etc/sysconfig

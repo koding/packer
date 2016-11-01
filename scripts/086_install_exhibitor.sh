@@ -13,8 +13,7 @@ ln -s ${EXBT_HOME}/target/exhibitor*jar ${EXBT_HOME}/exhibitor.jar
 mkdir -p /var/{lib,log}/exhibitor
 chown -R $ZK_USER:$ZK_USER /var/{lib,log}/exhibitor
 
-
-cat <<- EOF > $EXBT_HOME/defaults.conf
+cat <<-EOF >$EXBT_HOME/defaults.conf
 zookeeper-data-directory=$ZK_DATA_DIR
 zookeeper-install-directory=$ZK_HOME
 zookeeper-log-directory=$ZK_LOG_DIR
@@ -35,7 +34,7 @@ auto-manage-instances-fixed-ensemble-size=$ZK_ENSEMBLE_SIZE
 backup-extra=throttle\=&bucket-name\=$EXBT_S3_BUCKET&key-prefix\=$EXBT_S3_BACKUP_PREFIX&max-retries\=4&retry-sleep-ms\=30000
 EOF
 
-cat <<- EOF > $EXBT_HOME/credentials.properties
+cat <<-EOF >$EXBT_HOME/credentials.properties
 com.netflix.exhibitor.s3.access-key-id=${AWS_ACCESS_KEY}
 com.netflix.exhibitor.s3.access-secret-key=${AWS_SECRET_KEY}
 EOF

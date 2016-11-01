@@ -10,9 +10,7 @@ curl -sS https://archive.apache.org/dist/kafka/${KAFKA_VERSION}/$KAFKA_RELEASE.t
 cd /opt && tar zxf kafka.tgz && rm kafka.tgz
 mv /opt/kafka_* $KAFKA_HOME
 
-
 cp $(dirname $0)/data/kafka.init /etc/rc.d/init.d/kafka
-
 
 groupadd -r $KAFKA_USER
 useradd -g $KAFKA_USER -M -r $KAFKA_USER
