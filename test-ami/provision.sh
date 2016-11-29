@@ -56,8 +56,12 @@ pip install s3cmd
 
 ## firefox
 
-wget -O /tmp/firefox.deb https://sourceforge.net/projects/ubuntuzilla/files/mozilla/apt/pool/main/f/firefox-mozilla-build/firefox-mozilla-build_48.0.2-0ubuntu1_amd64.deb/download
-dpkg --install /tmp/firefox.deb
+apt-get install -y libgtk-3-0 libasound2
+
+curl --silent https://ftp.mozilla.org/pub/firefox/releases/46.0/linux-x86_64/en-US/firefox-46.0.tar.bz2 |
+  tar --extract --bzip2 --directory /opt/
+
+ln --force --symbolic /opt/firefox/firefox /usr/bin/firefox
 
 # Install node.js
 
