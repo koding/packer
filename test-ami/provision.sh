@@ -133,6 +133,7 @@ cp $HOME/.gitconfig ~root/
 ## nginx
 
 update-rc.d nginx disable all
+service nginx stop
 
 
 # Initialize working environment
