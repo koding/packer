@@ -75,7 +75,7 @@ curl --silent $NODE_URL | \
 
 ## Update npm
 
-npm install --global npm@4.*
+npm install --global npm@4.0.5
 
 ## Install CoffeeScript modules
 
