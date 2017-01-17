@@ -13,7 +13,7 @@
       "region": "us-east-1",
       "vpc_id": "{{user `aws_vpc_id`}}",
       "subnet_id": "{{user `aws_subnet_id`}}",
-      "source_ami": "ami-23c6fb49",
+      "source_ami": "ami-13585304",
       "instance_type": "t2.medium",
       "ssh_username": "ec2-user",
       "ssh_timeout": "600s",
