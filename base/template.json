@@ -44,15 +44,6 @@
       ]
     },
     {
-      "type": "shell",
-      "inline": [
-        "sudo mkdir -p /opt",
-        "sudo mkdir -p /etc/sysconfig",
-        "sudo mkdir -p /etc/profile.d"
-      ],
-      "skip_clean": true
-    },
-    {
       "type": "file",
       "source": "../scripts",
       "destination": "/tmp/ami-scripts"
