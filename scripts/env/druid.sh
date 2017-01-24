@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 
 export DRUID_HOME=${DRUID_HOME:-/opt/druid}
 export DRUID_VERSION=${DRUID_VERSION:-0.9.1.1}

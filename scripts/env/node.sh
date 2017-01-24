@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 
 export NODE_VERSION="v6.9.4"
 export NODE_NAME="node-$NODE_VERSION-linux-x64"

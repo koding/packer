@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 
 export AWS_REGION=${AWS_REGION:-us-east-1}
 export AWS_ACCESS_KEY=${AWS_ACCESS_KEY:-}

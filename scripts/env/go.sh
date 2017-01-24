@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 
 export GO_VERSION="1.7.1"
 export GO_TARBALL="go$GO_VERSION.linux-amd64.tar.gz"

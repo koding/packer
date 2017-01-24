@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 
 export EXBT_HOME=${EXBT_HOME:-/opt/exhibitor}
 export EXHIBITOR_POM="https://raw.githubusercontent.com/Netflix/exhibitor/d911a16d704bbe790d84bbacc655ef050c1f5806/exhibitor-standalone/src/main/resources/buildscripts/standalone/maven/pom.xml"

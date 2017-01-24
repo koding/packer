@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 
 export SUPERVISORD_VERSION="3.2.0"
 

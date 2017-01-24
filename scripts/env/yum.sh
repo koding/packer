@@ -1,3 +1,3 @@
-#!/bin/bash -x
+#!/bin/bash
 
 export YUM="yum --assumeyes"
