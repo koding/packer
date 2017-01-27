@@ -61,7 +61,8 @@
         "sudo /opt/ami-scripts/050_install_pip.sh",
         "sudo /opt/ami-scripts/050_install_supervisor.sh",
         "sudo /opt/ami-scripts/070_install_papertrail.sh",
-        "sudo /opt/ami-scripts/0100_install_countly.sh"
+        "sudo /opt/ami-scripts/100_install_countly.sh",
+        "sudo /opt/ami-scripts/900_cleanup.sh"
       ],
       "skip_clean": true
     }
