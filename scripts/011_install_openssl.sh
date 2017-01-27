@@ -6,8 +6,6 @@ source $(dirname $0)/export_env_vars.sh
 
 $YUM install openssl-devel
 
-pushd /tmp
-
 wget https://openssl.org/source/openssl-$OPENSSL_VERSION.tar.gz
 tar -zxvf openssl-$OPENSSL_VERSION.tar.gz -C /usr/local/src
 cd /usr/local/src/openssl-$OPENSSL_VERSION
@@ -15,5 +13,3 @@ cd /usr/local/src/openssl-$OPENSSL_VERSION
 make depend
 make
 make install
-
-popd
