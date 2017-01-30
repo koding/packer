@@ -47,9 +47,11 @@
       "type": "shell",
       "environment_vars": [
         "SCRIPTS_DIR=/opt/ami-scripts",
+        "COUNTLY_BUCKET=kodingdev-backups",
         "AWS_ACCESS_KEY_ID={{user `aws_access_key`}}",
         "AWS_SECRET_ACCESS_KEY={{user `aws_secret_key`}}"
       ],
+      "execute_command":"chmod +x {{ .Path }}; {{ .Vars }} {{ .Path }}",
       "inline": [
         "sudo mkdir -p /opt",
         "sudo mv /tmp/ami-scripts /opt/ami-scripts",
