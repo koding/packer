@@ -51,22 +51,22 @@
         "AWS_ACCESS_KEY_ID={{user `aws_access_key`}}",
         "AWS_SECRET_ACCESS_KEY={{user `aws_secret_key`}}"
       ],
-      "execute_command":"chmod +x {{ .Path }}; {{ .Vars }} {{ .Path }}",
+      "execute_command":"{{ .Vars }} sudo -E {{ .Path }}",
       "inline": [
-        "sudo mkdir -p /opt",
-        "sudo mv /tmp/ami-scripts /opt/ami-scripts",
-        "sudo /opt/ami-scripts/000_configure_server.sh",
-        "sudo /opt/ami-scripts/010_install_setup_tools.sh",
-        "sudo /opt/ami-scripts/010_install_utilities.sh",
-        "sudo /opt/ami-scripts/011_install_openssl.sh",
-        "sudo /opt/ami-scripts/012_install_http2.sh",
-        "sudo /opt/ami-scripts/020_install_nginx.sh",
-        "sudo /opt/ami-scripts/030_install_node.sh",
-        "sudo /opt/ami-scripts/050_install_pip.sh",
-        "sudo /opt/ami-scripts/050_install_supervisor.sh",
-        "sudo /opt/ami-scripts/070_install_papertrail.sh",
-        "sudo /opt/ami-scripts/100_install_countly.sh",
-        "sudo /opt/ami-scripts/900_cleanup.sh"
+        "mkdir -p /opt",
+        "mv /tmp/ami-scripts /opt/ami-scripts",
+        "/opt/ami-scripts/000_configure_server.sh",
+        "/opt/ami-scripts/010_install_setup_tools.sh",
+        "/opt/ami-scripts/010_install_utilities.sh",
+        "/opt/ami-scripts/011_install_openssl.sh",
+        "/opt/ami-scripts/012_install_http2.sh",
+        "/opt/ami-scripts/020_install_nginx.sh",
+        "/opt/ami-scripts/030_install_node.sh",
+        "/opt/ami-scripts/050_install_pip.sh",
+        "/opt/ami-scripts/050_install_supervisor.sh",
+        "/opt/ami-scripts/070_install_papertrail.sh",
+        "/opt/ami-scripts/100_install_countly.sh",
+        "/opt/ami-scripts/900_cleanup.sh"
       ],
       "skip_clean": true
     }
