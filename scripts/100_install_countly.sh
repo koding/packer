@@ -14,8 +14,9 @@ $YUM install gcc-c++-4.8.5 policycoreutils-python
 $YUM install sendmail
 service sendmail start
 
-# from install.nghttp2.sh
+aws s3 cp s3://koding-backups/countly_enterprise_edition_$COUNTLY_VERSION.zip countly_enterprise_edition_$COUNTLY_VERSION.zip
 
+unzip countly_enterprise_edition_$COUNTLY_VERSION.zip -d /opt/countly
 
 cd /opt/countly
 
