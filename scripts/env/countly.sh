@@ -1,0 +1,3 @@
+#!/bin/bash
+
+export COUNTLY_VERSION=${COUNTLY_VERSION:-16.12.2}
