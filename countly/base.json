@@ -5,7 +5,7 @@
     "aws_vpc_id": "{{env `AWS_VPC_ID`}}",
     "aws_subnet_id": "{{env `AWS_SUBNET_ID`}}",
     "source_ami": "ami-f60d8ee1",
-    "ami_name": "druid",
+    "ami_name": "countly",
     "ami_description": "Countly AMI",
     "region": "us-east-1",
     "instance_type": "m3.xlarge"
