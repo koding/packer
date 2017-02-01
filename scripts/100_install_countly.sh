@@ -46,7 +46,11 @@ cp ./plugins/plugins.default.json ./plugins/plugins.json
 node ./bin/scripts/install_plugins
 
 # install sdk-web
-./bin/scripts/update.sh sdk-web
+mkdir -p ./frontend/express/public/sdk/web;
+# TODO(cihangir): we shouldnt use latest SDK and should pin. but sdk lacks our version ATM.
+LATEST_SDK="$(wget -qO- https://api.github.com/repos/countly/countly-sdk-web/releases | grep tag_name | head -n 1 | cut -d '"' -f 4)"
+npm install countly-sdk-web@$LATEST_SDK ;
+cp -rf ./node_modules/countly-sdk-web/lib/* ./frontend/express/public/sdk/web/
 
 # compile scripts for production
 grunt dist-all
