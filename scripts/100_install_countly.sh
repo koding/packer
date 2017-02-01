@@ -21,8 +21,8 @@ unzip countly.zip -d /opt
 cd /opt/countly
 
 npm install -g node-gyp --unsafe-perm
-npm install -g grunt-cli --unsafe-perm
-npm install --unsafe-perm
+npm install -g grunt-cli
+npm install
 
 #configure and start nginx
 useradd www-data
