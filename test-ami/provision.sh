@@ -39,7 +39,12 @@ apt-get install -y nginx
 
 ## mongodb
 
-apt-get install -y mongodb-clients
+MONGO_VERSION="3.2.8"
+MONGO_FLAVOR="linux-x86_64"
+curl -O https://fastdl.mongodb.org/linux/mongodb-$MONGO_FLAVOR-$MONGO_VERSION.tgz
+tar -zxvf mongodb-$MONGO_FLAVOR-$MONGO_VERSION.tgz
+cp -R ./mongodb-$MONGO_FLAVOR-$MONGO_VERSION/bin/* /usr/bin
+rm -rf ./mongodb-$MONGO_FLAVOR-$MONGO_VERSION
 
 ## postgresql
 
