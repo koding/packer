@@ -60,6 +60,7 @@
         "sudo /opt/ami-scripts/050_install_pip.sh",
         "sudo /opt/ami-scripts/050_install_supervisor.sh",
         "sudo /opt/ami-scripts/060_install_misc.sh",
+        "sudo /opt/ami-scripts/070_install_datadog.sh",
         "sudo /opt/ami-scripts/070_install_papertrail.sh"
       ],
       "skip_clean": true
