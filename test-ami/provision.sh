@@ -41,10 +41,11 @@ apt-get install -y nginx
 
 MONGO_VERSION="3.2.8"
 MONGO_FLAVOR="linux-x86_64"
-curl -O https://fastdl.mongodb.org/linux/mongodb-$MONGO_FLAVOR-$MONGO_VERSION.tgz
-tar -zxvf mongodb-$MONGO_FLAVOR-$MONGO_VERSION.tgz
-cp -R ./mongodb-$MONGO_FLAVOR-$MONGO_VERSION/bin/* /usr/bin
-rm -rf ./mongodb-$MONGO_FLAVOR-$MONGO_VERSION
+MONGO_NAME="mongodb-$MONGO_FLAVOR-$MONGO_VERSION"
+MONGO_URL="https://fastdl.mongodb.org/linux/$MONGO_NAME.tgz"
+
+curl --silent --location $MONGO_URL | tar --extract --gzip --directory /usr/local/
+ln --symbolic /usr/local/$MONGO_NAME/bin/* /usr/local/bin/
 
 ## postgresql
 
