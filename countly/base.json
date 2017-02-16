@@ -4,6 +4,8 @@
     "aws_secret_key": "{{env `AWS_SECRET_KEY`}}",
     "aws_vpc_id": "{{env `AWS_VPC_ID`}}",
     "aws_subnet_id": "{{env `AWS_SUBNET_ID`}}",
+    "countly_bucket": "{{env `COUNTLY_BUCKET`}}",
+    "__countly_bucket_default_is": "kodingdev-backups",
     "source_ami": "ami-f60d8ee1",
     "ami_name": "countly",
     "ami_description": "Countly AMI",
@@ -47,7 +49,7 @@
       "type": "shell",
       "environment_vars": [
         "SCRIPTS_DIR=/opt/ami-scripts",
-        "COUNTLY_BUCKET=kodingdev-backups",
+        "COUNTLY_BUCKET={{user `countly_bucket`}}",
         "AWS_ACCESS_KEY_ID={{user `aws_access_key`}}",
         "AWS_SECRET_ACCESS_KEY={{user `aws_secret_key`}}"
       ],
