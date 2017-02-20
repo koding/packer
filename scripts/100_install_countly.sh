@@ -14,9 +14,18 @@ $YUM install gcc-c++-4.8.5 policycoreutils-python
 $YUM install sendmail
 service sendmail start
 
+# download countly server.
+mkdir -p /opt
 aws s3 cp s3://$COUNTLY_S3_LINK countly.zip
-
 unzip countly.zip -d /opt
+rm -rf countly.zip
+
+# download custom plugins for countly.
+mkdir countly-plugins
+aws s3 cp s3://$COUNTLY_S3_PLUGIN_PATH ./countly-plugins --recursive
+# do not override existing plugins, but add new ones if necessary
+unzip -n ./countly-plugins/*.zip -d /opt/countly/plugins
+rm -rf countly-plugins
 
 cd /opt/countly
 
