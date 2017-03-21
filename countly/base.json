@@ -66,6 +66,7 @@
         "/opt/ami-scripts/050_install_pip.sh",
         "/opt/ami-scripts/050_install_supervisor.sh",
         "/opt/ami-scripts/070_install_papertrail.sh",
+        "/opt/ami-scripts/070_install_datadog.sh",
         "/opt/ami-scripts/100_install_countly.sh",
         "/opt/ami-scripts/900_cleanup.sh"
       ],
