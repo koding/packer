@@ -93,7 +93,7 @@ npm install --global gulp gulp-coffee
 
 wget https://godeb.s3.amazonaws.com/godeb-amd64.tar.gz
 tar xfz godeb-amd64.tar.gz
-./godeb install 1.7.1
+./godeb install 1.8
 
 
 # Install docker-engine
