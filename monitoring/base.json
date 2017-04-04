@@ -1,0 +1,80 @@
+{
+  "variables": {
+    "version": "0",
+    "aws_access_key_id": "{{env `AWS_ACCESS_KEY_ID`}}",
+    "aws_secret_access_key": "{{env `AWS_SECRET_ACCESS_KEY`}}",
+    "aws_vpc_id": "{{env `AWS_VPC_ID`}}",
+    "aws_subnet_id": "{{env `AWS_SUBNET_ID`}}"
+  },
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "access_key": "{{user `aws_access_key_id`}}",
+      "secret_key": "{{user `aws_secret_access_key`}}",
+      "region": "us-east-1",
+      "vpc_id": "{{user `aws_vpc_id`}}",
+      "subnet_id": "{{user `aws_subnet_id`}}",
+      "source_ami": "ami-13585304",
+      "instance_type": "t2.medium",
+      "ssh_username": "ec2-user",
+      "ssh_timeout": "600s",
+      "associate_public_ip_address": true,
+      "tags": {
+        "Name": "monitoring",
+        "branch": "{{user `branch`}}",
+        "packer_version": "{{user `version`}}",
+        "git_revision": "{{user `git_revision`}}"
+      },
+      "ami_name": "koding-monitoring-{{user `version`}}-{{user `git_revision`}}",
+      "ami_users": [
+        "616271189586",
+        "845625340818"
+      ],
+      "launch_block_device_mappings": [
+        {
+          "device_name": "/dev/xvda",
+          "volume_size": 16,
+          "delete_on_termination": true
+        }
+      ],
+      "user_data_file": "../base/user_data.amazon-ebs"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "../base/amazon-linux",
+      "destination": "/tmp"
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "tar --create --file /tmp/amazon-linux.tar /tmp/amazon-linux/",
+        "sudo tar --verbose --extract --file /tmp/amazon-linux.tar --no-overwrite-dir --keep-old-files --strip-components=3 --directory=/etc",
+        "sudo yum --assumeyes makecache"
+      ]
+    },
+    {
+      "type": "file",
+      "source": "../scripts",
+      "destination": "/tmp/ami-scripts"
+    },
+    {
+      "type": "shell",
+      "execute_command":"{{ .Vars }} sudo -E /bin/bash -o errexit -o xtrace {{ .Path }}",
+      "inline": [
+        "mv /tmp/ami-scripts /opt/ami-scripts",
+        "source /opt/ami-scripts/export_env_vars.sh",
+        "/opt/ami-scripts/000_install_base.sh",
+        "/opt/ami-scripts/013_install_openvpn.sh",
+        "/opt/ami-scripts/051_install_postgresql.sh"
+      ],
+      "skip_clean": true
+    }
+  ],
+  "post-processors": [
+    {
+      "type": "manifest"
+    }
+  ]
+}
