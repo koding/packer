@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 
 cat <<-EOF >$EXBT_HOME/defaults.conf
 zookeeper-data-directory=$ZK_DATA_DIR
