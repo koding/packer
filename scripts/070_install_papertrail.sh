@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -o errexit
-
 # Logs
 
 mkdir -p /var/log/supervisord

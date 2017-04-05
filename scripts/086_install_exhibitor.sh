@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -o errexit
-
 # Install Exhibitor
 mkdir -p ${EXBT_HOME}
 curl -Lo ${EXBT_HOME}/pom.xml ${EXHIBITOR_POM}

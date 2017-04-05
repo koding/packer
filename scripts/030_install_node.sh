@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -o errexit
-
 # node.js
 
 curl --silent $NODE_URL | tar --extract --xz --directory /usr/local

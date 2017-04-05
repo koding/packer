@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -o errexit
-
 # INSTALL ZK
 mkdir -p ${ZK_HOME} ${ZK_DATA_DIR} ${ZK_LOG_DIR}
 

@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -o errexit
-
 YUM="yum --assumeyes"
 
 JAVA_HOME="/usr/java/latest"

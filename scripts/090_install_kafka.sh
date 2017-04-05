@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -o errexit
-
 # download kafka
 curl -sS https://archive.apache.org/dist/kafka/${KAFKA_VERSION}/$KAFKA_RELEASE.tgz -o /opt/kafka.tgz
 

@@ -1,7 +1,5 @@
 #!/bin/bash -x
 
-set -o errexit
-
 cat <<-EOF >$EXBT_HOME/defaults.conf
 zookeeper-data-directory=$ZK_DATA_DIR
 zookeeper-install-directory=$ZK_HOME

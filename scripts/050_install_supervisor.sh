@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -o errexit
-
 source /etc/profile
 
 python -m pip install supervisor==$SUPERVISORD_VERSION

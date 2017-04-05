@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -o errexit
-
 $YUM install openssl-devel
 
 wget https://openssl.org/source/openssl-$OPENSSL_VERSION.tar.gz

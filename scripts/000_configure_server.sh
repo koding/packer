@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -o errexit
-
 # UPGRADE SYSTEM
 $YUM update
 $YUM upgrade

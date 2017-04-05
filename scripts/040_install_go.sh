@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -o errexit
-
 # golang
 
 curl --silent $GO_SRC_URL | tar --extract --gzip --directory=/usr/local

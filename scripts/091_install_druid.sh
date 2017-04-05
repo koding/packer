@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -o errexit
-
 wget -q $DRUID_RELEASE -O /tmp/druid.tar.gz
 tar xfz /tmp/druid.tar.gz -C /opt
 mv /opt/druid-* $DRUID_HOME

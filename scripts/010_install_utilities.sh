@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -o errexit
-
 # Common packages
 
 $YUM install telnet

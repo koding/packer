@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -o errexit
-
 cd /usr/local/src
 git clone https://github.com/nghttp2/nghttp2.git
 cd nghttp2

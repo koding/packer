@@ -67,7 +67,7 @@
       "environment_vars": [
         "SCRIPTS_DIR=/opt/ami-scripts"
       ],
-      "execute_command": "{{ .Vars }} sudo -E /bin/bash {{ .Path }}",
+      "execute_command": "{{ .Vars }} sudo -E /bin/bash -o errexit {{ .Path }}",
       "inline": [
         "mv /tmp/ami-scripts /opt/ami-scripts",
         "mv /tmp/supervisord_env.sh /etc/sysconfig/supervisord",
