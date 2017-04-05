@@ -2,8 +2,6 @@
 
 set -o errexit
 
-source $(dirname $0)/export_env_vars.sh
-
 # download kafka
 curl -sS https://archive.apache.org/dist/kafka/${KAFKA_VERSION}/$KAFKA_RELEASE.tgz -o /opt/kafka.tgz
 

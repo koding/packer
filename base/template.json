@@ -53,6 +53,7 @@
       "execute_command": "{{ .Vars }} sudo -E /bin/bash {{ .Path }}",
       "inline": [
         "mv /tmp/ami-scripts /opt/ami-scripts",
+        "source /opt/ami-scripts/export_env_vars.sh",
         "/opt/ami-scripts/000_configure_server.sh",
         "/opt/ami-scripts/010_install_utilities.sh",
         "/opt/ami-scripts/020_install_nginx.sh",

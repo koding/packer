@@ -2,8 +2,6 @@
 
 set -o errexit
 
-source $(dirname $0)/export_env_vars.sh
-
 # INSTALL ZK
 mkdir -p ${ZK_HOME} ${ZK_DATA_DIR} ${ZK_LOG_DIR}
 

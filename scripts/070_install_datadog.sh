@@ -1,7 +1,5 @@
 #!/bin/bash
 
-source $(dirname $0)/export_env_vars.sh
-
 # enable datadog repo
 cp $(dirname $0)/data/yum.repos.d/datadog.repo /etc/yum.repos.d/datadog.repo
 

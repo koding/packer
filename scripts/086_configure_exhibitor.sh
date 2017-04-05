@@ -2,8 +2,6 @@
 
 set -o errexit
 
-source $(dirname $0)/export_env_vars.sh
-
 cat <<-EOF >$EXBT_HOME/defaults.conf
 zookeeper-data-directory=$ZK_DATA_DIR
 zookeeper-install-directory=$ZK_HOME

@@ -56,6 +56,7 @@
       "inline": [
         "mkdir -p /opt",
         "mv /tmp/ami-scripts /opt/ami-scripts",
+        "source /opt/ami-scripts/export_env_var.sh",
         "/opt/ami-scripts/000_configure_server.sh",
         "/opt/ami-scripts/010_install_setup_tools.sh",
         "/opt/ami-scripts/010_install_utilities.sh",

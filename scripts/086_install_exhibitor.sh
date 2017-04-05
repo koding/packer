@@ -2,8 +2,6 @@
 
 set -o errexit
 
-source $(dirname $0)/export_env_vars.sh
-
 # Install Exhibitor
 mkdir -p ${EXBT_HOME}
 curl -Lo ${EXBT_HOME}/pom.xml ${EXHIBITOR_POM}

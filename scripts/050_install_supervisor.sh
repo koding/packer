@@ -2,8 +2,6 @@
 
 set -o errexit
 
-source $(dirname $0)/export_env_vars.sh
-
 source /etc/profile
 
 python -m pip install supervisor==$SUPERVISORD_VERSION
