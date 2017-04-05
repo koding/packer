@@ -64,11 +64,6 @@
         "sudo /opt/ami-scripts/070_install_papertrail.sh"
       ],
       "skip_clean": true
-    },
-    {
-      "type": "shell",
-      "script": "snort.sh",
-      "execute_command": "{{ .Vars }} sudo -E '{{ .Path }}'"
     }
   ]
 }
