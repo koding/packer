@@ -54,16 +54,7 @@
       "inline": [
         "mv /tmp/ami-scripts /opt/ami-scripts",
         "source /opt/ami-scripts/export_env_vars.sh",
-        "/opt/ami-scripts/000_configure_server.sh",
-        "/opt/ami-scripts/010_install_utilities.sh",
-        "/opt/ami-scripts/020_install_nginx.sh",
-        "/opt/ami-scripts/030_install_node.sh",
-        "/opt/ami-scripts/040_install_go.sh",
-        "/opt/ami-scripts/050_install_pip.sh",
-        "/opt/ami-scripts/050_install_supervisor.sh",
-        "/opt/ami-scripts/060_install_misc.sh",
-        "/opt/ami-scripts/070_install_datadog.sh",
-        "/opt/ami-scripts/070_install_papertrail.sh"
+        "/opt/ami-scripts/000_install_base.sh"
       ],
       "skip_clean": true
     }
