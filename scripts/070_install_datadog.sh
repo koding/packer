@@ -26,4 +26,5 @@ cp $(dirname $0)/data/dd-agent/hooks/99start_datadog.sh /opt/elasticbeanstalk/ho
 
 $YUM makecache
 $YUM install datadog-agent
-service datadog-agent stop
+
+service datadog-agent stop || :
