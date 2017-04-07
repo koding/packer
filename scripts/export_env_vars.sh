@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export SHELLOPTS
+
 source /etc/profile
 
 for i in /opt/ami-scripts/env/*.sh; do
