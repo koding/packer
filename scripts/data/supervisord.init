@@ -45,11 +45,9 @@ ulimit -n 96000
 RETVAL=0
 
 # source koding env vars
-if [ ! -f /etc/sysconfig/supervisord ]; then
-    exit 6
+if [ -f /etc/sysconfig/supervisord ]; then
+    . /etc/sysconfig/supervisord
 fi
-
-. /etc/sysconfig/supervisord
 
 running_pid()
 {
