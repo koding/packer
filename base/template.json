@@ -25,6 +25,10 @@
         "eu-west-1",
         "ap-southeast-1"
       ],
+      "ami_users": [
+        "616271189586",
+        "845625340818"
+      ],
       "launch_block_device_mappings": [
         {
           "device_name": "/dev/xvda",
