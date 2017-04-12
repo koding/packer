@@ -1,5 +1,6 @@
 {
   "variables": {
+    "version": "0",
     "aws_access_key_id": "{{env `AWS_ACCESS_KEY_ID`}}",
     "aws_secret_access_key": "{{env `AWS_SECRET_ACCESS_KEY`}}",
     "aws_vpc_id": "{{env `AWS_VPC_ID`}}",
@@ -19,7 +20,8 @@
       "ssh_timeout": "600s",
       "associate_public_ip_address": true,
       "tags": {
-        "Name": "base"
+        "Name": "base",
+        "packer_version": "{{user `version`}}",
       },
       "ami_name": "koding-eb-{{user `version`}}",
       "ami_regions": [
