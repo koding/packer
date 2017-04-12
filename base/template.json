@@ -1,6 +1,7 @@
 {
   "variables": {
     "version": "0",
+    "git_revision": "",
     "aws_access_key_id": "{{env `AWS_ACCESS_KEY_ID`}}",
     "aws_secret_access_key": "{{env `AWS_SECRET_ACCESS_KEY`}}",
     "aws_vpc_id": "{{env `AWS_VPC_ID`}}",
@@ -22,8 +23,9 @@
       "tags": {
         "Name": "base",
         "packer_version": "{{user `version`}}",
+        "git_revision": "{{user `git_revision`}}"
       },
-      "ami_name": "koding-eb-{{user `version`}}",
+      "ami_name": "koding-eb-{{user `version`}}-{{user `git_revision`}}",
       "ami_regions": [
         "us-east-1",
         "us-west-2",
