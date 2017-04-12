@@ -19,6 +19,12 @@
       "ssh_timeout": "600s",
       "associate_public_ip_address": true,
       "ami_name": "koding-eb-{{user `version`}}",
+      "ami_regions": [
+        "us-east-1",
+        "us-west-2",
+        "eu-west-1",
+        "ap-southeast-1"
+      ],
       "launch_block_device_mappings": [
         {
           "device_name": "/dev/xvda",
