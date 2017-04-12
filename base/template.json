@@ -18,7 +18,7 @@
       "ssh_username": "ec2-user",
       "ssh_timeout": "600s",
       "associate_public_ip_address": true,
-      "ami_name": "koding-eb-{{timestamp}}",
+      "ami_name": "koding-eb-{{user `version`}}",
       "launch_block_device_mappings": [
         {
           "device_name": "/dev/xvda",
