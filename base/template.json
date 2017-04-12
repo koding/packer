@@ -18,6 +18,7 @@
       "ssh_username": "ec2-user",
       "ssh_timeout": "600s",
       "associate_public_ip_address": true,
+      "tags": {},
       "ami_name": "koding-eb-{{user `version`}}",
       "ami_regions": [
         "us-east-1",
