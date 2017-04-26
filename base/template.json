@@ -21,6 +21,7 @@
       "associate_public_ip_address": true,
       "tags": {
         "Name": "base",
+        "branch": "{{user `branch`}}",
         "packer_version": "{{user `version`}}",
         "git_revision": "{{user `git_revision`}}"
       },
