@@ -2,7 +2,8 @@
 
 source /etc/profile
 
-python -m pip install supervisor==$SUPERVISORD_VERSION
+pip install supervisor==$SUPERVISORD_VERSION
+pip install superlance
 
 # fix random failures
 [ -f /usr/bin/supervisorctl ] || ln -sf /usr/local/bin/supervisorctl /usr/bin/supervisorctl

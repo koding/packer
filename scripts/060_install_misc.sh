@@ -4,4 +4,4 @@
 
 yum install graphviz
 
-pip install psutil superlance
+pip install psutil
