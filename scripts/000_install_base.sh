@@ -13,7 +13,6 @@ pushd $(dirname $0)
 ./060_install_misc.sh
 ./070_install_datadog.sh
 ./070_install_papertrail.sh
-./900_cleanup.sh
 
 popd
 

@@ -79,7 +79,8 @@
         "/opt/ami-scripts/050_install_supervisor.sh",
         "/opt/ami-scripts/080_install_java.sh",
         "/opt/ami-scripts/081_install_maven.sh",
-        "/opt/ami-scripts/090_install_kafka.sh"
+        "/opt/ami-scripts/090_install_kafka.sh",
+        "/opt/ami-scripts/900_cleanup.sh"
       ],
       "skip_clean": true
     }
