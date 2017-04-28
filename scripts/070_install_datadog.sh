@@ -28,6 +28,6 @@ yum makecache
 yum install datadog-agent
 
 source /etc/profile
-pip install psutil
+pip install psutil psycopg2
 
 service datadog-agent stop || :
