@@ -1,5 +1,7 @@
 #!/bin/bash
 
-$YUM install make binutils autoconf
-$YUM install automake libtool
-$YUM install pkgconfig zlib-devel libxml2-devel
+$YUM install autoconf make automake
+
+$YUM install binutils libtool pkgconfig
+
+$YUM install libxml2-devel zlib-devel
