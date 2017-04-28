@@ -2,4 +2,4 @@
 
 $YUM install make binutils autoconf
 $YUM install automake makedepend libtool
-$YUM install pkgconfig zlib-devel libxml2-devel python-setuptools
+$YUM install pkgconfig zlib-devel libxml2-devel
