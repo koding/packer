@@ -12,3 +12,4 @@ $YUM install scons tcsh
 
 $YUM install cairo cairo-devel
 $YUM install libjpeg-turbo-devel
+$YUM install pango pango-devel
