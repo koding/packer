@@ -8,7 +8,7 @@ pushd $(dirname $0)
 ./020_install_nginx.sh
 ./030_install_node.sh
 ./040_install_go.sh
-./050_install_pip.sh
+./050_install_python.sh
 ./050_install_supervisor.sh
 ./060_install_misc.sh
 ./070_install_datadog.sh
