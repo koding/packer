@@ -1,6 +1,6 @@
 #!/bin/bash
 
-$YUM install bison
+$YUM install bison gcc
 
 $YUM install autoconf make automake
 
