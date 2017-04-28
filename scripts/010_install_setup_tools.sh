@@ -1,5 +1,7 @@
 #!/bin/bash
 
+$YUM install bison
+
 $YUM install autoconf make automake
 
 $YUM install binutils libtool pkgconfig
