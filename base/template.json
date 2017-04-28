@@ -71,7 +71,8 @@
       "inline": [
         "mv /tmp/ami-scripts /opt/ami-scripts",
         "source /opt/ami-scripts/export_env_vars.sh",
-        "/opt/ami-scripts/000_install_base.sh"
+        "/opt/ami-scripts/000_install_base.sh",
+        "/opt/ami-scripts/900_cleanup.sh"
       ],
       "skip_clean": true
     }
