@@ -4,6 +4,7 @@ pushd $(dirname $0)
 
 ./000_configure_server.sh
 ./010_install_utilities.sh
+./010_install_setup_tools.sh
 ./020_install_nginx.sh
 ./030_install_node.sh
 ./040_install_go.sh
