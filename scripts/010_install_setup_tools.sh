@@ -11,3 +11,4 @@ $YUM install libxml2-devel zlib-devel
 $YUM install scons tcsh
 
 $YUM install cairo cairo-devel
+$YUM install libjpeg-turbo-devel
