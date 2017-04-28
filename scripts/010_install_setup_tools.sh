@@ -1,6 +1,6 @@
 #!/bin/bash
 
-$YUM install bison gcc
+$YUM install bison gcc glibc-devel
 
 $YUM install autoconf make automake
 
