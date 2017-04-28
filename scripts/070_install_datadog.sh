@@ -27,4 +27,7 @@ cp $(dirname $0)/data/dd-agent/hooks/99start_datadog.sh /opt/elasticbeanstalk/ho
 yum makecache
 yum install datadog-agent
 
+source /etc/profile
+pip install psutil
+
 service datadog-agent stop || :

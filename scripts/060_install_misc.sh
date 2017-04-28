@@ -3,5 +3,3 @@
 # Miscellaneous
 
 yum install graphviz
-
-pip install psutil
