@@ -61,7 +61,7 @@
     },
     {
       "type": "shell",
-      "execute_command":"{{ .Vars }} sudo -E /bin/bash -o errexit -o xtrace {{ .Path }}",
+      "execute_command": "{{ .Vars }} sudo -E /bin/bash -o errexit -o xtrace {{ .Path }}",
       "inline": [
         "mv /tmp/ami-scripts /opt/ami-scripts",
         "source /opt/ami-scripts/export_env_vars.sh",
