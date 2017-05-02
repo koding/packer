@@ -1,41 +1,41 @@
 {
   "variables": {
-    "aws_access_key": "{{env `AWS_ACCESS_KEY`}}",
-    "aws_secret_key": "{{env `AWS_SECRET_KEY`}}",
+    "aws_access_key_id": "{{env `AWS_ACCESS_KEY_ID`}}",
+    "aws_secret_access_key": "{{env `AWS_SECRET_ACCESS_KEY`}}",
     "aws_vpc_id": "{{env `AWS_VPC_ID`}}",
     "aws_subnet_id": "{{env `AWS_SUBNET_ID`}}",
-    "countly_bucket": "{{env `COUNTLY_BUCKET`}}",
-    "source_ami": "ami-f60d8ee1",
-    "ami_name": "countly",
-    "ami_description": "Countly AMI",
     "region": "us-east-1",
-    "instance_type": "m3.xlarge"
+    "source_ami": "ami-f60d8ee1",
+    "instance_type": "m3.xlarge",
+    "ami_name": "koding-countly",
+    "ami_description": "Countly AMI",
+    "countly_bucket": "{{env `COUNTLY_BUCKET`}}"
   },
   "builders": [
     {
       "type": "amazon-ebs",
-      "access_key": "{{user `aws_access_key`}}",
-      "secret_key": "{{user `aws_secret_key`}}",
+      "access_key": "{{user `aws_access_key_id`}}",
+      "secret_key": "{{user `aws_secret_access_key`}}",
+      "region": "{{user `region`}}",
       "vpc_id": "{{user `aws_vpc_id`}}",
       "subnet_id": "{{user `aws_subnet_id`}}",
       "source_ami": "{{user `source_ami`}}",
-      "ami_name": "{{user `ami_name`}}-{{timestamp}}",
-      "ami_description": "{{user `ami_description`}}",
-      "region": "{{user `region`}}",
       "instance_type": "{{user `instance_type`}}",
       "ssh_username": "ec2-user",
       "ssh_timeout": "600s",
       "associate_public_ip_address": true,
+      "tags": {
+        "Name": "countly"
+      },
+      "ami_name": "{{user `ami_name`}}-{{timestamp}}",
+      "ami_description": "{{user `ami_description`}}",
       "ami_block_device_mappings": [
         {
           "device_name": "/dev/xvda",
           "volume_size": 12,
           "delete_on_termination": true
         }
-      ],
-      "tags": {
-        "Name": "{{user `ami_name`}}-{{timestamp}}"
-      }
+      ]
     }
   ],
   "provisioners": [
@@ -49,8 +49,8 @@
       "environment_vars": [
         "SCRIPTS_DIR=/opt/ami-scripts",
         "COUNTLY_BUCKET={{user `countly_bucket`}}",
-        "AWS_ACCESS_KEY_ID={{user `aws_access_key`}}",
-        "AWS_SECRET_ACCESS_KEY={{user `aws_secret_key`}}"
+        "AWS_ACCESS_KEY_ID={{user `aws_access_key_id`}}",
+        "AWS_SECRET_ACCESS_KEY={{user `aws_secret_access_key`}}"
       ],
       "execute_command": "{{ .Vars }} sudo -E /bin/bash -o errexit -o xtrace {{ .Path }}",
       "inline": [
