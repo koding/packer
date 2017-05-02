@@ -72,7 +72,7 @@
         "mv /tmp/ami-scripts /opt/ami-scripts",
         "mv /tmp/supervisord_env.sh /etc/sysconfig/supervisord",
         "mv /tmp/supervisord.conf /etc/supervisord.conf",
-        "source /opt/ami-scripts/export_env_var.sh",
+        "source /opt/ami-scripts/export_env_vars.sh",
         "/opt/ami-scripts/000_configure_server.sh",
         "/opt/ami-scripts/000_install_base.sh",
         "/opt/ami-scripts/080_install_java.sh",
