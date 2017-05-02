@@ -4,7 +4,7 @@
 
 curl --silent $GO_SRC_URL | tar --extract --gzip --directory=/usr/local
 
-echo "export PATH=/usr/local/go/bin:\$PATH" >/etc/profile.d/golang.sh
+echo "pathmunge /usr/local/go/bin" >/etc/profile.d/golang.sh
 
 source /etc/profile
 

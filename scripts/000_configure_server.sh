@@ -34,3 +34,5 @@ echo "127.0.0.1     $HOSTNAME" >>/etc/hosts
 mkdir -p /opt
 mkdir -p /etc/sysconfig
 mkdir -p /etc/profile.d
+
+echo "pathmunge /usr/local/bin" >/etc/profile.d/local.sh
