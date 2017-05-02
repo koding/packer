@@ -1,5 +1,6 @@
 {
   "variables": {
+    "version": "0",
     "aws_access_key": "{{env `AWS_ACCESS_KEY_ID`}}",
     "aws_secret_key": "{{env `AWS_SECRET_ACCESS_KEY`}}",
     "aws_vpc_id": "{{env `AWS_VPC_ID`}}",
@@ -24,7 +25,10 @@
       "ssh_timeout": "600s",
       "associate_public_ip_address": true,
       "tags": {
-        "Name": "kafka"
+        "Name": "kafka",
+        "branch": "{{user `branch`}}",
+        "template_version": "{{user `version`}}",
+        "git_revision": "{{user `git_revision`}}"
       },
       "ami_name": "{{user `ami_name`}}-{{timestamp}}",
       "ami_description": "{{user `ami_description`}}",
@@ -34,7 +38,8 @@
           "volume_size": 12,
           "delete_on_termination": true
         }
-      ]
+      ],
+      "user_data_file": "../base/user_data.amazon-ebs"
     }
   ],
   "provisioners": [
