@@ -22,7 +22,7 @@
       "tags": {
         "Name": "monitoring",
         "branch": "{{user `branch`}}",
-        "packer_version": "{{user `version`}}",
+        "template_version": "{{user `version`}}",
         "git_revision": "{{user `git_revision`}}"
       },
       "ami_name": "koding-monitoring-{{user `version`}}-{{user `git_revision`}}",
