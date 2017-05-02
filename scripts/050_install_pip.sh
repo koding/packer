@@ -9,7 +9,3 @@ $YUM install python-setuptools || echo python-setuptools installed
 source /etc/profile
 
 easy_install --upgrade pip==$PIP_VER
-
-echo "export PATH=/usr/local/bin:\$PATH" >/etc/profile.d/local_bin.sh
-
-source /etc/profile

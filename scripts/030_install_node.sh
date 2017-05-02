@@ -6,8 +6,7 @@ curl --silent $NODE_URL | tar --extract --xz --directory /usr/local
 ln --symbolic /usr/local/$NODE_NAME/bin/* /usr/local/bin/
 ln --symbolic /usr/local/bin/node /usr/local/bin/nodejs
 
-[[ ":$PATH:" != */usr/local/bin* ]] &&  echo 'export PATH="/usr/local/bin:${PATH}"' >>/etc/profile.d/local_bin.sh
-[[ ":$PATH:" != */usr/local/share/npm/bin* ]] && echo 'export PATH="/usr/local/share/npm/bin:${PATH}"' >>/etc/profile.d/npm_bin.sh
+echo "pathmunge /usr/local/share/npm/bin" >/etc/profile.d/npm.sh
 
 # for commands below
 source /etc/profile
