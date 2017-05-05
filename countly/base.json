@@ -65,5 +65,10 @@
       ],
       "skip_clean": true
     }
+  ],
+  "post-processors": [
+    {
+      "type": "manifest"
+    }
   ]
 }
