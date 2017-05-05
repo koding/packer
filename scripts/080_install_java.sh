@@ -12,9 +12,11 @@ wget --no-cookies --no-check-certificate \
 	--header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" \
 	"http://download.oracle.com/otn-pub/java/jdk/$JAVA_VERSION-$BUILD_VERSION/$JAVA_RPM"
 
+set +o errexit
 $YUM localinstall $JAVA_RPM
 rm -rf $JAVA_RPM
 yum clean all
+set -o errexit
 
 alternatives --install /usr/bin/java jar /usr/java/latest/bin/java 200000
 alternatives --install /usr/bin/javaws javaws /usr/java/latest/bin/javaws 200000

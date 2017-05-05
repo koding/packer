@@ -9,7 +9,7 @@ command -v aws >/dev/null 2>&1 || { echo "aws cli is required" && exit 1; }
 
 $YUM install gcc-c++-4.8.5 policycoreutils-python
 $YUM install sendmail
-service sendmail start
+service sendmail start || :
 
 # download countly server.
 mkdir -p /opt
@@ -26,9 +26,11 @@ rm -rf countly-plugins
 
 cd /opt/countly
 
-npm install -g node-gyp --unsafe-perm
-npm install -g grunt-cli
-npm install
+set +o errexit
+npm install --unsafe-perm --global node-gyp
+npm install --unsafe-perm --global grunt-cli
+npm install --unsafe-perm
+set -o errexit
 
 #configure and start nginx
 useradd www-data
@@ -36,7 +38,7 @@ useradd www-data
 mkdir -p /etc/nginx/conf.d
 cp ./bin/config/nginx.server.conf /etc/nginx/conf.d/default.conf
 cp ./bin/config/nginx.conf        /etc/nginx/nginx.conf
-service nginx restart
+service nginx restart || :
 
 # move countly's supervisord config
 cp ./bin/config/supervisord.conf /etc/supervisord.conf
