@@ -4,6 +4,11 @@
 
 yum install less patch which
 
+# Extra Packages for Enterprise Linux (EPEL)
+
+yum install epel-release
+yum-config-manager --enable epel
+
 # Archiving & Compression
 
 yum install tar unzip
