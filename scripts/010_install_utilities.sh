@@ -2,7 +2,7 @@
 
 # Core
 
-yum install patch which
+yum install less patch which
 
 # Archiving & Compression
 
