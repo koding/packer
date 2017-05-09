@@ -1,19 +1,28 @@
 #!/bin/bash
 
-# Common packages
+# Core
+
+yum install patch which
+
+# Archiving & Compression
+
+yum install tar unzip
+
+# Network
 
 yum install telnet
-yum install wget
-yum install tar
-yum install curl
-yum install unzip
-yum install which
+
+yum install curl wget
+
+# Version control
+
+yum install git
+
+# Text processor
+
+yum install jq
+
+# Misc
 
 yum install htop
-yum install sysstat
-yum install dstat
-yum install jq # json parser
-
-# Version controlling packages
-
-yum install git patch
+yum install dstat sysstat
