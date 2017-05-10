@@ -2,9 +2,9 @@
 
 # CALCULATE BROKER ID
 
-FOURTHPOWER=$(echo '256^3' | bc)
-THIRDPOWER=$(echo '256^2' | bc)
-SECONDPOWER=$(echo '256^1' | bc)
+FOURTHPOWER=$((256 ** 3))
+THIRDPOWER=$((256 ** 2))
+SECONDPOWER=$((256 ** 1))
 
 HOST_IP=${HOST_IP:-$(curl http://169.254.169.254/latest/meta-data/local-ipv4)}
 
