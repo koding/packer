@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # INSTALL PYTHON AND SUPERVISORD - on some systems some of the below does not exist.
-$YUM install python26-pip || echo python26-pip installed
-$YUM install python-pip || echo python-pip installed
-$YUM install python-devel || echo python-devel installed
-$YUM install python-setuptools || echo python-setuptools installed
+yum install python26-pip || echo python26-pip installed
+yum install python-pip || echo python-pip installed
+yum install python-devel || echo python-devel installed
+yum install python-setuptools || echo python-setuptools installed
 
 source /etc/profile
 

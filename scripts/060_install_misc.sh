@@ -2,6 +2,6 @@
 
 # Miscellaneous
 
-$YUM install graphviz
+yum install graphviz
 
 pip install psutil superlance

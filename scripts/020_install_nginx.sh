@@ -2,4 +2,4 @@
 
 # nginx
 
-$YUM install nginx
+yum install nginx

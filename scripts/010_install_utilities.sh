@@ -2,18 +2,18 @@
 
 # Common packages
 
-$YUM install telnet
-$YUM install wget
-$YUM install tar
-$YUM install curl
-$YUM install unzip
-$YUM install which
+yum install telnet
+yum install wget
+yum install tar
+yum install curl
+yum install unzip
+yum install which
 
-$YUM install htop
-$YUM install sysstat
-$YUM install dstat
-$YUM install jq # json parser
+yum install htop
+yum install sysstat
+yum install dstat
+yum install jq # json parser
 
 # Version controlling packages
 
-$YUM install git patch
+yum install git patch

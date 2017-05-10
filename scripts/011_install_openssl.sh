@@ -1,6 +1,6 @@
 #!/bin/bash
 
-$YUM install openssl-devel
+yum install openssl-devel
 
 wget https://openssl.org/source/openssl-$OPENSSL_VERSION.tar.gz
 tar -zxvf openssl-$OPENSSL_VERSION.tar.gz -C /usr/local/src

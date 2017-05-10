@@ -13,7 +13,7 @@ wget --no-cookies --no-check-certificate \
 	"http://download.oracle.com/otn-pub/java/jdk/$JAVA_VERSION-$BUILD_VERSION/$JAVA_RPM"
 
 set +o errexit
-$YUM localinstall $JAVA_RPM
+yum localinstall $JAVA_RPM
 rm -rf $JAVA_RPM
 yum clean all
 set -o errexit

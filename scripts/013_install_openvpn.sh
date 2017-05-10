@@ -1,4 +1,4 @@
 #!/bin/bash
 
-$YUM install --enablerepo=epel easy-rsa
-$YUM install openvpn
+yum install --enablerepo=epel easy-rsa
+yum install openvpn

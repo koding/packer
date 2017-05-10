@@ -1,8 +1,13 @@
 #!/bin/bash
 
+# yum
+
+echo "assumeyes=1" >> /etc/yum.conf
+
 # UPGRADE SYSTEM
-$YUM update
-$YUM upgrade
+
+yum update
+yum upgrade
 
 # System-wide configuration
 

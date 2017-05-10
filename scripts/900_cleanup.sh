@@ -1,3 +1,3 @@
 #!/bin/bash
 
-$YUM clean all && rm -rf /tmp/* /var/tmp/*
+yum clean all && rm -rf /tmp/* /var/tmp/*

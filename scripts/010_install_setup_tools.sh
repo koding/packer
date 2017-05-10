@@ -1,15 +1,15 @@
 #!/bin/bash
 
-$YUM install bison gcc gcc-c++ glibc-devel
+yum install bison gcc gcc-c++ glibc-devel
 
-$YUM install autoconf make automake
+yum install autoconf make automake
 
-$YUM install binutils libtool pkgconfig
+yum install binutils libtool pkgconfig
 
-$YUM install libxml2-devel zlib-devel
+yum install libxml2-devel zlib-devel
 
-$YUM install scons tcsh
+yum install scons tcsh
 
-$YUM install cairo cairo-devel
-$YUM install libjpeg-turbo-devel
-$YUM install pango pango-devel
+yum install cairo cairo-devel
+yum install libjpeg-turbo-devel
+yum install pango pango-devel

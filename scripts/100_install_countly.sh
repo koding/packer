@@ -7,8 +7,8 @@ command -v aws >/dev/null 2>&1 || { echo "aws cli is required" && exit 1; }
 [ -z "$AWS_ACCESS_KEY_ID" ] && echo "AWS_ACCESS_KEY_ID is required for aws cli" && exit 1
 [ -z "$AWS_SECRET_ACCESS_KEY" ] && echo "AWS_SECRET_ACCESS_KEY is required for aws cli" && exit 1
 
-$YUM install gcc-c++-4.8.5 policycoreutils-python
-$YUM install sendmail
+yum install gcc-c++-4.8.5 policycoreutils-python
+yum install sendmail
 service sendmail start || :
 
 # download countly server.
