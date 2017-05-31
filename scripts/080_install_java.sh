@@ -3,14 +3,15 @@
 YUM="yum --assumeyes"
 
 JAVA_HOME="/usr/java/latest"
-JAVA_VERSION=8u102
-BUILD_VERSION=b14
+JAVA_VERSION=8u131
+BUILD_VERSION=b11
+BUILD_ID=d54c1d3a095b4ff2b6607d096fa80163
 JAVA_RPM=jdk-$JAVA_VERSION-linux-x64.rpm
 
 # INSTALL JAVA
 wget --no-cookies --no-check-certificate \
-	--header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" \
-	"http://download.oracle.com/otn-pub/java/jdk/$JAVA_VERSION-$BUILD_VERSION/$JAVA_RPM"
+	--header "Cookie: oraclelicense=accept-securebackup-cookie" \
+	"http://download.oracle.com/otn-pub/java/jdk/$JAVA_VERSION-$BUILD_VERSION/$BUILD_ID/$JAVA_RPM"
 
 set +o errexit
 yum localinstall $JAVA_RPM
