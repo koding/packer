@@ -32,7 +32,6 @@
       "ami_name": "{{user `ami_name`}}-{{user `version`}}-{{user `git_revision`}}",
       "ami_regions": [
         "us-east-1",
-        "us-west-2",
         "eu-west-1",
         "ap-southeast-1"
       ],
