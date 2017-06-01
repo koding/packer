@@ -6,5 +6,5 @@
 # updates. Both are required to use a custom AMI with Elastic
 # Beanstalk.
 
-repo_releasever: 2016.09
+repo_releasever: 2017.03
 repo_upgrade: none
