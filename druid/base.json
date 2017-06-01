@@ -6,7 +6,7 @@
     "aws_vpc_id": "{{env `AWS_VPC_ID`}}",
     "aws_subnet_id": "{{env `AWS_SUBNET_ID`}}",
     "region": "us-east-1",
-    "source_ami": "ami-f60d8ee1",
+    "source_ami": "{{env `AWS_SOURCE_AMI`}}",
     "instance_type": "m3.xlarge",
     "ami_name": "koding-druid",
     "ami_description": "Druid AMI containing all kind of binaries"
