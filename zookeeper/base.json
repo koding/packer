@@ -30,7 +30,7 @@
         "template_version": "{{user `version`}}",
         "git_revision": "{{user `git_revision`}}"
       },
-      "ami_name": "{{user `ami_name`}}-{{timestamp}}",
+      "ami_name": "{{user `ami_name`}}-{{user `version`}}-{{user `git_revision`}}",
       "ami_description": "{{user `ami_description`}}",
       "ami_block_device_mappings": [
         {
