@@ -8,7 +8,8 @@
     "region": "us-east-1",
     "source_ami": "{{env `AWS_SOURCE_AMI`}}",
     "instance_type": "t2.medium",
-    "ami_name": "koding-eb"
+    "ami_name": "koding-eb",
+    "ami_users": "616271189586,845625340818"
   },
   "builders": [
     {
@@ -35,10 +36,7 @@
         "eu-west-1",
         "ap-southeast-1"
       ],
-      "ami_users": [
-        "616271189586",
-        "845625340818"
-      ],
+      "ami_users": "{{user `ami_users`}}",
       "launch_block_device_mappings": [
         {
           "device_name": "/dev/xvda",

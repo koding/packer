@@ -9,6 +9,7 @@
     "source_ami": "{{env `AWS_SOURCE_AMI`}}",
     "instance_type": "m3.xlarge",
     "ami_name": "koding-countly",
+    "ami_users": "616271189586,845625340818",
     "ami_description": "Countly AMI",
     "countly_bucket": "{{env `COUNTLY_BUCKET`}}"
   },
@@ -32,6 +33,7 @@
         "git_revision": "{{user `git_revision`}}"
       },
       "ami_name": "{{user `ami_name`}}-{{user `version`}}-{{user `git_revision`}}",
+      "ami_users": "{{user `ami_users`}}",
       "ami_description": "{{user `ami_description`}}",
       "ami_block_device_mappings": [
         {
