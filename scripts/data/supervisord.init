@@ -19,6 +19,9 @@
 #               Script was originally written by Jason Koppe <jkoppe@indeed.com>.
 #
 
+# Source profile.
+. /etc/profile
+
 # source function library
 . /etc/rc.d/init.d/functions
 
@@ -47,13 +50,10 @@ if [ -f /etc/default/supervisord ]; then
   . /etc/default/supervisord
 fi
 
-# source koding env vars
-if [ ! -f /etc/sysconfig/supervisord ]; then
-    echo 'error: /etc/sysconfig/supervisord does not exist'
-    exit 6
+# source koding env vars specific to supervisord
+if [ -f /etc/sysconfig/supervisord ]; then
+    . /etc/sysconfig/supervisord
 fi
-
-. /etc/sysconfig/supervisord
 
 running_pid()
 {
