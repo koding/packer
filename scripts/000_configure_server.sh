@@ -32,9 +32,20 @@ sysctl -p /etc/sysctl.d/network.conf
 
 ## ulimit
 
-echo '* - nofile 65535' >/etc/security/limits.d/nofile
+# only files that ends with *.conf will be read by the OS.
+
+# sets system-wide file descriptors (FD) limits
+echo 'fs.file-max = 2000000' > /etc/sysctl.d/file-max.conf
+
+# user/process specific limits
+echo '* soft nofile 65000' > /etc/security/limits.d/nofile.conf
+echo '* hard nofile 65000' >> /etc/security/limits.d/nofile.conf
+echo 'root soft nofile 65000' >> /etc/security/limits.d/nofile.conf
+echo 'root hard nofile 65000' >> /etc/security/limits.d/nofile.conf
 
 echo "127.0.0.1     $HOSTNAME" >>/etc/hosts
+
+sysctl -p
 
 mkdir -p /opt
 mkdir -p /etc/sysconfig
