@@ -18,14 +18,14 @@
 #              https://github.com/papertrail/remote_syslog2/blob/master/examples/remote_syslog.init.d
 ### END INIT INFO
 
-# Source profile.
-. /etc/profile
-
 # Source function library.
 . /etc/init.d/functions
 
 # Source networking configuration.
 . /etc/sysconfig/network
+
+# Source profile.
+. /etc/profile
 
 [[ -z $PAPERTRAIL_PORT ]] && echo "PAPERTRAIL_PORT" is required && exit 1
 [[ -z $PAPERTRAIL_HOST ]] && echo "PAPERTRAIL_HOST" is required && exit 1
