@@ -36,6 +36,7 @@ sysctl -p /etc/sysctl.d/network.conf
 
 # sets system-wide file descriptors (FD) limits
 echo 'fs.file-max = 2000000' > /etc/sysctl.d/file-max.conf
+sysctl -p /etc/sysctl.d/file-max.conf
 
 # user/process specific limits
 echo '* soft nofile 65000' > /etc/security/limits.d/nofile.conf
@@ -43,12 +44,18 @@ echo '* hard nofile 65000' >> /etc/security/limits.d/nofile.conf
 echo 'root soft nofile 65000' >> /etc/security/limits.d/nofile.conf
 echo 'root hard nofile 65000' >> /etc/security/limits.d/nofile.conf
 
-echo "127.0.0.1     $HOSTNAME" >>/etc/hosts
 
-sysctl -p
-
+## folders
 mkdir -p /opt
 mkdir -p /etc/sysconfig
 mkdir -p /etc/profile.d
+
+
+## hosts file
+
+# NOTE: this might stay in hosts file after system installation is done. If you
+# want to keep your hosts file up-to-date, do not forget to add 900_cleanup.sh
+# in your installation template
+echo "127.0.0.1     $HOSTNAME" >>/etc/hosts
 
 echo "pathmunge /usr/local/bin" >/etc/profile.d/local.sh
