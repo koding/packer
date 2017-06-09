@@ -32,7 +32,7 @@
 
 EXTRAOPTIONS="--hostname=$HOSTNAME --dest-host=$PAPERTRAIL_HOST --dest-port=$PAPERTRAIL_PORT"
 
-prog="/usr/local/remote_syslog/remote_syslog"
+prog="/usr/local/bin/remote_syslog"
 config="/etc/log_files.yml"
 pid_dir="/var/run"
 
