@@ -15,5 +15,5 @@ mkdir -p /etc/dd-agent/conf.d
 # set new api key
 [[ ! -z $DATADOG_API_KEY ]] && echo "api_key: $DATADOG_API_KEY" >> /etc/dd-agent/datadog.conf
 
-/etc/init.d/datadog-agent stop
-/etc/init.d/datadog-agent start
+/sbin/service datadog-agent stop || echo "datadog agent was not running"
+/sbin/service datadog-agent start
