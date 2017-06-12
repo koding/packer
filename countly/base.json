@@ -1,6 +1,5 @@
 {
   "variables": {
-    "version": "1",
     "aws_access_key_id": "{{env `AWS_ACCESS_KEY_ID`}}",
     "aws_secret_access_key": "{{env `AWS_SECRET_ACCESS_KEY`}}",
     "aws_vpc_id": "{{env `AWS_VPC_ID`}}",
@@ -29,10 +28,9 @@
       "tags": {
         "Name": "countly",
         "branch": "{{user `branch`}}",
-        "template_version": "{{user `version`}}",
         "git_revision": "{{user `git_revision`}}"
       },
-      "ami_name": "{{user `ami_name`}}-{{user `version`}}-{{user `git_revision`}}",
+      "ami_name": "{{user `ami_name`}}-{{user `git_revision`}}",
       "ami_users": "{{user `ami_users`}}",
       "ami_description": "{{user `ami_description`}}",
       "ami_block_device_mappings": [
