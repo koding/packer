@@ -38,6 +38,7 @@ RESPONSE_CODE=$(curl $CURL_PARAMS -H "X-Papertrail-Token: $PAPERTRAIL_TOKEN" htt
 if [[ $RESPONSE_CODE == 200 ]]; then
 	echo "already registered to papertrail"
 	restart
+	exit 0
 fi
 
 # try registering to papertrail
