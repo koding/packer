@@ -8,9 +8,9 @@ mkdir -p /etc/dd-agent/checks.d
 mkdir -p /etc/dd-agent/conf.d
 
 # copy our configurations
-[[ -d .ebextensions/datadog/checks.d ]] && cp -R .ebextensions/datadog/checks.d/* /etc/dd-agent/checks.d/
-[[ -d .ebextensions/datadog/conf.d ]] && cp -R .ebextensions/datadog/conf.d/* /etc/dd-agent/conf.d/
-[[ -f .ebextensions/datadog/datadog.conf ]] && cp .ebextensions/datadog/datadog.conf /etc/dd-agent/datadog.conf
+[[ -d deployment/datadog/checks.d ]] && cp -R deployment/datadog/checks.d/* /etc/dd-agent/checks.d/
+[[ -d deployment/datadog/conf.d ]] && cp -R deployment/datadog/conf.d/* /etc/dd-agent/conf.d/
+[[ -f deployment/datadog/datadog.conf ]] && cp deployment/datadog/datadog.conf /etc/dd-agent/datadog.conf
 
 # set new api key
 [[ ! -z $DATADOG_API_KEY ]] && echo "api_key: $DATADOG_API_KEY" >> /etc/dd-agent/datadog.conf
