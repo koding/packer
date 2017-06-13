@@ -23,7 +23,7 @@ echo "export PAPERTRAIL_HOST=$PAPERTRAIL_HOST" >/etc/profile.d/papertrail.sh
 echo "export PAPERTRAIL_PORT=$PAPERTRAIL_PORT" >>/etc/profile.d/papertrail.sh
 
 # copy our config
-[[ -f $EB_APP_DEPLOY_DIR/.ebextensions/papertrail.yml ]] && cp $EB_APP_DEPLOY_DIR/.ebextensions/papertrail.yml /etc/log_files.yml && echo "copied log_files.yml"
+[[ -f $EB_APP_DEPLOY_DIR/deployment/papertrail.yml ]] && cp $EB_APP_DEPLOY_DIR/deployment/papertrail.yml /etc/log_files.yml && echo "copied log_files.yml"
 
 CURL_PARAMS="--silent --output /dev/null --write-out %{http_code}"
 
