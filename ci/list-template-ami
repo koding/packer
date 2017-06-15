@@ -1,0 +1,47 @@
+#!/bin/bash
+
+set -o errexit
+
+while [[ "$1" != "" ]]; do
+	case $1 in
+		--template-version)
+			filter_template_version=true
+			;;
+		--git-revision)
+			filter_git_revision=true
+			;;
+		--branch)
+			shift
+			filter_branch=$1
+			;;
+		*)
+			[[ -z "$template_file" ]] && template_file=$1
+			;;
+	esac
+	shift
+done
+
+if [[ -z "$template_file" ]]; then
+	echo 'error: template file is not specified'
+	exit 1
+fi
+
+builder=$(jq --raw-output '.builders[] | select(.type == "amazon-ebs")' $template_file)
+
+template_name=$(echo "$builder" | jq --raw-output '.tags.Name')
+filters="Name=tag:Name,Values=$template_name"
+
+if [[ -n "$filter_template_version" ]]; then
+	template_version=$(echo "$builder" | jq --raw-output '.variables.version' $template_file)
+	filters="$filters Name=tag:template_version,Values=$template_version"
+fi
+
+if [[ -n "$filter_git_revision" ]]; then
+	filters="$filters Name=tag:git_revision,Values=$(git rev-parse --short HEAD)"
+fi
+
+if [[ -n "$filter_branch" ]]; then
+	filters="$filters Name=tag:branch,Values=$filter_branch"
+fi
+
+aws ec2 describe-images --filters $filters

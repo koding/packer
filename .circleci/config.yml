@@ -1,0 +1,199 @@
+version: 2
+
+defaults: &defaults
+  docker:
+    - image: koding/circle@sha256:76df7d9600f32d5c61b847e5c07e35a4332624097fe17681d618f1fcf97fb5c6
+
+jobs:
+  packer-base:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          working_directory: base
+          command: packer validate base.json
+      - run:
+          name: packer build base.json
+          working_directory: base
+          no_output_timeout: 30m
+          command: |
+            export AWS_VPC_ID=$PACKER_BASE_AWS_VPC_ID AWS_SUBNET_ID=$PACKER_BASE_AWS_SUBNET_ID
+            ../ci/build-packer-template base.json
+            [[ "$CIRCLE_BRANCH" == "master" ]] && ../ci/dump-ami-tags base.json || :
+      - run:
+          name: copy AMI tags
+          working_directory: base
+          environment:
+            AWS_EB_APP_NAME: koding
+            AWS_EB_ENV_NAME: koding-sandbox
+          command: |
+            [[ "$CIRCLE_BRANCH" == "master" ]] || exit 0
+            export AWS_ACCESS_KEY_ID=$KODING_AWS_ACCESS_KEY_ID
+            export AWS_SECRET_ACCESS_KEY=$KODING_AWS_SECRET_ACCESS_KEY
+            ../ci/copy-ami-tags base.json
+      - run:
+          name: update koding-sandbox environment
+          command: |
+            [[ "$CIRCLE_BRANCH" == "master" ]] || exit 0
+            curl --user ${CIRCLE_API_TOKEN}: \
+                 --data build_parameters[CIRCLE_JOB]=koding-sandbox \
+                 https://circleci.com/api/v1.1/project/github/koding/infra/tree/master
+      - run:
+          name: update koding-proxy-dev-us-e-1-v2 environment
+          command: |
+            [[ "$CIRCLE_BRANCH" == "master" ]] || exit 0
+            curl --user ${CIRCLE_API_TOKEN}: \
+                 --data build_parameters[CIRCLE_JOB]=koding-proxy-dev-us-e-1-v2 \
+                 https://circleci.com/api/v1.1/project/github/koding/infra/tree/master
+      - run:
+          name: cleanup
+          working_directory: base
+          command: |
+            [[ "$CIRCLE_BRANCH" == "master" ]] && exit 0
+            ../ci/cleanup packer-manifest.json
+
+  packer-monitoring:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          working_directory: monitoring
+          command: packer validate base.json
+      - run:
+          name: packer build base.json
+          working_directory: monitoring
+          no_output_timeout: 20m
+          command: |
+            export AWS_VPC_ID=$PACKER_BASE_AWS_VPC_ID AWS_SUBNET_ID=$PACKER_BASE_AWS_SUBNET_ID
+            ../ci/build-packer-template base.json
+            [[ "$CIRCLE_BRANCH" == "master" ]] && ci/dump-ami-tags base.json || :
+      - run:
+          name: copy AMI tags
+          working_directory: monitoring
+          environment:
+            AWS_EB_APP_NAME: koding
+            AWS_EB_ENV_NAME: koding-sandbox
+          command: |
+            [[ "$CIRCLE_BRANCH" == "master" ]] || exit 0
+            export AWS_ACCESS_KEY_ID=$KODING_AWS_ACCESS_KEY_ID
+            export AWS_SECRET_ACCESS_KEY=$KODING_AWS_SECRET_ACCESS_KEY
+            ../ci/copy-ami-tags base.json
+      - run:
+          name: update koding-monitoring environment
+          command: |
+            [[ "$CIRCLE_BRANCH" == "master" ]] || exit 0
+            curl --user ${CIRCLE_API_TOKEN}: \
+                 --data build_parameters[CIRCLE_JOB]=koding-monitoring \
+                 https://circleci.com/api/v1.1/project/github/koding/infra/tree/master
+      - run:
+          name: cleanup
+          working_directory: monitoring
+          command: |
+            [[ "$CIRCLE_BRANCH" == "master" ]] && exit 0
+            ../ci/cleanup packer-manifest.json
+
+  packer-druid:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          working_directory: druid
+          command: packer validate base.json
+      - run:
+          name: packer build base.json
+          working_directory: druid
+          no_output_timeout: 30m
+          command: |
+            export AWS_VPC_ID=$PACKER_BASE_AWS_VPC_ID AWS_SUBNET_ID=$PACKER_BASE_AWS_SUBNET_ID
+            ../ci/build-packer-template base.json
+      - run:
+          name: cleanup
+          working_directory: druid
+          command: |
+            [[ "$CIRCLE_BRANCH" == "master" ]] && exit 0
+            ../ci/cleanup packer-manifest.json
+
+  packer-kafka:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          working_directory: kafka
+          command: packer validate base.json
+      - run:
+          name: packer build base.json
+          working_directory: kafka
+          no_output_timeout: 30m
+          command: |
+            export AWS_VPC_ID=$PACKER_BASE_AWS_VPC_ID AWS_SUBNET_ID=$PACKER_BASE_AWS_SUBNET_ID
+            ../ci/build-packer-template base.json
+      - run:
+          name: cleanup
+          working_directory: kafka
+          command: |
+            [[ "$CIRCLE_BRANCH" == "master" ]] && exit 0
+            ../ci/cleanup packer-manifest.json
+
+  packer-zookeeper:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          working_directory: zookeeper
+          command: packer validate base.json
+      - run:
+          name: packer build base.json
+          working_directory: zookeeper
+          no_output_timeout: 30m
+          command: |
+            export AWS_VPC_ID=$PACKER_BASE_AWS_VPC_ID AWS_SUBNET_ID=$PACKER_BASE_AWS_SUBNET_ID
+            ../ci/build-packer-template base.json
+      - run:
+          name: cleanup
+          working_directory: zookeeper
+          command: |
+            [[ "$CIRCLE_BRANCH" == "master" ]] && exit 0
+            ../ci/cleanup packer-manifest.json
+
+  packer-countly:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          working_directory: countly
+          command: packer validate base.json
+      - run:
+          name: packer build base.json
+          working_directory: countly
+          no_output_timeout: 30m
+          environment:
+            COUNTLY_BUCKET: kodingdev-backups
+          command: |
+            export AWS_VPC_ID=$PACKER_BASE_AWS_VPC_ID AWS_SUBNET_ID=$PACKER_BASE_AWS_SUBNET_ID
+            export COUNTLY_BUCKET
+            ../ci/build-packer-template base.json
+      - run:
+          name: update kodingdev-countly environment
+          command: |
+            [[ "$CIRCLE_BRANCH" == "master" ]] || exit 0
+            curl --user ${CIRCLE_API_TOKEN}: \
+                 --data build_parameters[CIRCLE_JOB]=kodingdev-countly \
+                 https://circleci.com/api/v1.1/project/github/koding/infra/tree/master
+      - run:
+          name: cleanup
+          working_directory: countly
+          command: |
+            [[ "$CIRCLE_BRANCH" == "master" ]] && exit 0
+            ../ci/cleanup packer-manifest.json
+
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - packer-base:
+      - packer-monitoring:
+      - packer-druid:      
+      - packer-kafka:      
+      - packer-zookeeper:      
+      - packer-countly:

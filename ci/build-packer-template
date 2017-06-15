@@ -1,0 +1,25 @@
+#!/bin/bash
+
+set -o errexit
+
+ci_dir=$(dirname $0)
+
+template_file=$1
+if [[ -z "$template_file" ]]; then
+	echo 'error: template file is missing'
+	exit 1
+fi
+
+function check_template_built() {
+	"$ci_dir"/list-template-ami \
+		--template-version --git-revision \
+		"$template_file" \
+		| jq --exit-status '.Images | length > 0' >/dev/null
+}
+
+check_template_built && exit 0
+
+packer build \
+	-var branch="$(git rev-parse --abbrev-ref HEAD)" \
+	-var git_revision="$(git rev-parse --short HEAD)" \
+	"$template_file"
