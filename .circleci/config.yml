@@ -189,16 +189,3 @@ jobs:
           command: |
             [[ "$CIRCLE_BRANCH" == "master" ]] && exit 0
             ../ci/cleanup packer-manifest.json
-
-
-workflows:
-  version: 2
-  build_and_deploy:
-    jobs:
-      - build:
-      - packer-base:
-      - packer-monitoring:
-      - packer-druid:      
-      - packer-kafka:      
-      - packer-zookeeper:      
-      - packer-countly:
