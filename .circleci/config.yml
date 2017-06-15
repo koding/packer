@@ -4,7 +4,7 @@ defaults: &defaults
   docker:
     - image: koding/circle@sha256:76df7d9600f32d5c61b847e5c07e35a4332624097fe17681d618f1fcf97fb5c6
   working_directory: ~/packer
-  
+
 jobs:
   build:
     <<: *defaults
@@ -190,3 +190,33 @@ jobs:
           command: |
             [[ "$CIRCLE_BRANCH" == "master" ]] && exit 0
             ../ci/cleanup packer-manifest.json
+
+  packer-cihangir:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: update kodingdev-countly environment
+          command: |
+            [[ "$CIRCLE_BRANCH" == "master" ]] || exit 0
+            curl --user ${CIRCLE_API_TOKEN}: \
+                 --data build_parameters[CIRCLE_JOB]=kodingdev-countly \
+                 --data build_parameters[MY_TEST_ENV_VAR]=cihangir \
+                 https://circleci.com/api/v1.1/project/github/koding/infra/tree/master
+
+  packer-env:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: update kodingdev-countly environment
+          command: |
+            env
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build
+      - packer-cihangir
+      - packer-env
