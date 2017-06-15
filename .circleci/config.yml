@@ -58,7 +58,7 @@ jobs:
           command: |
             export AWS_VPC_ID=$PACKER_BASE_AWS_VPC_ID AWS_SUBNET_ID=$PACKER_BASE_AWS_SUBNET_ID
             ../ci/build-packer-template base.json
-            [[ "$CIRCLE_BRANCH" == "master" ]] && ci/dump-ami-tags base.json || :
+            [[ "$CIRCLE_BRANCH" == "master" ]] && ../ci/dump-ami-tags base.json || :
       - run:
           name: copy AMI tags
           working_directory: monitoring
