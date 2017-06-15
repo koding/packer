@@ -1,0 +1,1 @@
+[![CircleCI](https://circleci.com/gh/koding/packer.svg?style=svg)](https://circleci.com/gh/koding/packer)
