@@ -1,0 +1,56 @@
+#!/bin/bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+template_file=$1
+if [[ -z "$template_file" ]]; then
+	echo 'error: missing template file'
+	exit 1
+fi
+
+ami_name_prefix=$(jq --raw-output '.variables.ami_name' $template_file)
+
+git_revision=$2
+if [[ -z "$git_revision" ]]; then
+	echo 'error: missing git revision'
+	exit 1
+fi
+
+ami_name=$ami_name_prefix-$git_revision
+
+image_id=$(aws ec2 describe-images --filter Name=name,Values=$ami_name |
+	jq --raw-output '.Images[0].ImageId // ""')
+
+if [[ -z "$image_id" ]]; then
+	echo "error: missing ami $ami_name"
+	exit 1
+fi
+
+aws elasticbeanstalk describe-environments \
+	--application-name "$AWS_EB_APP_NAME" \
+	--environment-names "$AWS_EB_ENV_NAME" |
+	jq --exit-status '.Environments | length > 0' >/dev/null
+
+image_id_setting=$(aws elasticbeanstalk describe-configuration-settings \
+	--application-name $AWS_EB_APP_NAME \
+	--environment-name $AWS_EB_ENV_NAME |
+	jq --raw-output \
+		'.ConfigurationSettings[0].OptionSettings[]
+			| select(
+				.Namespace == "aws:autoscaling:launchconfiguration"
+				and .ResourceName == "AWSEBAutoScalingLaunchConfiguration"
+				and .OptionName == "ImageId")
+			| .Value')
+
+option_image_id=$(jo ResourceName=AWSEBAutoScalingLaunchConfiguration \
+	Namespace=aws:autoscaling:launchconfiguration \
+	OptionName=ImageId Value="$image_id")
+
+option_settings=$(jo -a "$option_image_id")
+
+aws elasticbeanstalk update-environment \
+	--application-name "$AWS_EB_APP_NAME" \
+	--environment-name "$AWS_EB_ENV_NAME" \
+	--option-settings "$option_settings"

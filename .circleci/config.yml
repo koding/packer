@@ -36,20 +36,7 @@ jobs:
             export AWS_ACCESS_KEY_ID=$KODING_AWS_ACCESS_KEY_ID
             export AWS_SECRET_ACCESS_KEY=$KODING_AWS_SECRET_ACCESS_KEY
             ../ci/copy-ami-tags base.json
-      - run:
-          name: update koding-sandbox environment
-          command: |
-            [[ "$CIRCLE_BRANCH" == "master" ]] || exit 0
-            curl --user ${CIRCLE_API_TOKEN}: \
-                 --data build_parameters[CIRCLE_JOB]=koding-sandbox \
-                 https://circleci.com/api/v1.1/project/github/koding/infra/tree/master
-      - run:
-          name: update koding-proxy-dev-us-e-1-v2 environment
-          command: |
-            [[ "$CIRCLE_BRANCH" == "master" ]] || exit 0
-            curl --user ${CIRCLE_API_TOKEN}: \
-                 --data build_parameters[CIRCLE_JOB]=koding-proxy-dev-us-e-1-v2 \
-                 https://circleci.com/api/v1.1/project/github/koding/infra/tree/master
+
       - run:
           name: cleanup
           working_directory: base
@@ -83,13 +70,6 @@ jobs:
             export AWS_ACCESS_KEY_ID=$KODING_AWS_ACCESS_KEY_ID
             export AWS_SECRET_ACCESS_KEY=$KODING_AWS_SECRET_ACCESS_KEY
             ../ci/copy-ami-tags base.json
-      - run:
-          name: update koding-monitoring environment
-          command: |
-            [[ "$CIRCLE_BRANCH" == "master" ]] || exit 0
-            curl --user ${CIRCLE_API_TOKEN}: \
-                 --data build_parameters[CIRCLE_JOB]=koding-monitoring \
-                 https://circleci.com/api/v1.1/project/github/koding/infra/tree/master
       - run:
           name: cleanup
           working_directory: monitoring
@@ -191,32 +171,195 @@ jobs:
             [[ "$CIRCLE_BRANCH" == "master" ]] && exit 0
             ../ci/cleanup packer-manifest.json
 
-  packer-cihangir:
-    <<: *defaults
-    steps:
-      - checkout
-      - run:
-          name: update kodingdev-countly environment
-          command: |
-            [[ "$CIRCLE_BRANCH" == "master" ]] || exit 0
-            curl --user ${CIRCLE_API_TOKEN}: \
-                 --data build_parameters[CIRCLE_JOB]=kodingdev-countly \
-                 --data build_parameters[MY_TEST_ENV_VAR]=cihangir \
-                 https://circleci.com/api/v1.1/project/github/koding/infra/tree/master
 
-  packer-env:
+  update-koding-sandbox:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: update koding-sandbox environment
+          environment:
+            AWS_DEFAULT_REGION: us-east-1
+            AWS_EB_APP_NAME: koding
+            AWS_EB_ENV_NAME: koding-sandbox
+          command: |
+            export AWS_DEFAULT_REGION AWS_EB_APP_NAME AWS_EB_ENV_NAME
+            export AWS_ACCESS_KEY_ID=$KODING_AWS_ACCESS_KEY_ID
+            export AWS_SECRET_ACCESS_KEY=$KODING_AWS_SECRET_ACCESS_KEY
+            ci/update-elasticbeanstalk-environment base/base.json $(git rev-parse --short HEAD)
+
+
+  update-koding-latest:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: update koding-latest environment
+          environment:
+            AWS_DEFAULT_REGION: us-east-1
+            AWS_EB_APP_NAME: koding
+            AWS_EB_ENV_NAME: koding-latest
+          command: |
+            export AWS_DEFAULT_REGION AWS_EB_APP_NAME AWS_EB_ENV_NAME
+            export AWS_ACCESS_KEY_ID=$KODING_AWS_ACCESS_KEY_ID
+            export AWS_SECRET_ACCESS_KEY=$KODING_AWS_SECRET_ACCESS_KEY
+            ci/update-elasticbeanstalk-environment base/base.json $(git rev-parse --short HEAD)
+
+
+  update-koding-prod:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: update koding-prod environment
+          environment:
+            AWS_DEFAULT_REGION: us-east-1
+            AWS_EB_APP_NAME: koding
+            AWS_EB_ENV_NAME: koding-prod
+          command: |
+            export AWS_DEFAULT_REGION AWS_EB_APP_NAME AWS_EB_ENV_NAME
+            export AWS_ACCESS_KEY_ID=$KODING_AWS_ACCESS_KEY_ID
+            export AWS_SECRET_ACCESS_KEY=$KODING_AWS_SECRET_ACCESS_KEY
+            ci/update-elasticbeanstalk-environment base/base.json $(git rev-parse --short HEAD)
+
+
+  update-koding-proxy-us-east-1:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: update koding-proxy-us-east-1 environment
+          environment:
+            AWS_DEFAULT_REGION: us-east-1
+            AWS_EB_APP_NAME: koding
+            AWS_EB_ENV_NAME: koding-proxy-us-east-1
+          command: |
+            export AWS_DEFAULT_REGION AWS_EB_APP_NAME AWS_EB_ENV_NAME
+            export AWS_ACCESS_KEY_ID=$KODING_AWS_ACCESS_KEY_ID
+            export AWS_SECRET_ACCESS_KEY=$KODING_AWS_SECRET_ACCESS_KEY
+            ci/update-elasticbeanstalk-environment base/base.json $(git rev-parse --short HEAD)
+
+
+  update-koding-proxy-eu-west-1:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: update koding-proxy-eu-west-1 environment
+          environment:
+            AWS_DEFAULT_REGION: eu-west-1
+            AWS_EB_APP_NAME: koding
+            AWS_EB_ENV_NAME: koding-proxy-eu-west-1
+          command: |
+            export AWS_DEFAULT_REGION AWS_EB_APP_NAME AWS_EB_ENV_NAME
+            export AWS_ACCESS_KEY_ID=$KODING_AWS_ACCESS_KEY_ID
+            export AWS_SECRET_ACCESS_KEY=$KODING_AWS_SECRET_ACCESS_KEY
+            ci/update-elasticbeanstalk-environment base/base.json $(git rev-parse --short HEAD)
+
+
+  update-koding-proxy-ap-s-e-1:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: update koding-proxy-ap-s-e-1 environment
+          environment:
+            AWS_DEFAULT_REGION: ap-southeast-1
+            AWS_EB_APP_NAME: koding
+            AWS_EB_ENV_NAME: koding-proxy-ap-s-e-1
+          command: |
+            export AWS_DEFAULT_REGION AWS_EB_APP_NAME AWS_EB_ENV_NAME
+            export AWS_ACCESS_KEY_ID=$KODING_AWS_ACCESS_KEY_ID
+            export AWS_SECRET_ACCESS_KEY=$KODING_AWS_SECRET_ACCESS_KEY
+            ci/update-elasticbeanstalk-environment base/base.json $(git rev-parse --short HEAD)
+
+
+  update-koding-proxy-dev-us-e-1-v2:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: update koding-proxy-dev-us-e-1-v2 environment
+          environment:
+            AWS_DEFAULT_REGION: us-east-1
+            AWS_EB_APP_NAME: koding
+            AWS_EB_ENV_NAME: koding-proxy-dev-us-e-1-v2
+          command: |
+            export AWS_DEFAULT_REGION AWS_EB_APP_NAME AWS_EB_ENV_NAME
+            export AWS_ACCESS_KEY_ID=$KODING_AWS_ACCESS_KEY_ID
+            export AWS_SECRET_ACCESS_KEY=$KODING_AWS_SECRET_ACCESS_KEY
+            ci/update-elasticbeanstalk-environment base/base.json $(git rev-parse --short HEAD)
+
+  update-koding-monitoring:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: update koding-monitoring environment
+          environment:
+            AWS_DEFAULT_REGION: us-east-1
+            AWS_EB_APP_NAME: koding
+            AWS_EB_ENV_NAME: koding-monitoring
+          command: |
+            export AWS_DEFAULT_REGION AWS_EB_APP_NAME AWS_EB_ENV_NAME
+            export AWS_ACCESS_KEY_ID=$KODING_AWS_ACCESS_KEY_ID
+            export AWS_SECRET_ACCESS_KEY=$KODING_AWS_SECRET_ACCESS_KEY
+            ci/update-elasticbeanstalk-environment monitoring/base.json $(git rev-parse --short HEAD)
+
+  update-kodingdev-countly:
     <<: *defaults
     steps:
       - checkout
       - run:
           name: update kodingdev-countly environment
+          environment:
+            AWS_DEFAULT_REGION: us-east-1
+            AWS_EB_APP_NAME: koding
+            AWS_EB_ENV_NAME: kodingdev-countly
           command: |
-            env
+            export AWS_DEFAULT_REGION AWS_EB_APP_NAME AWS_EB_ENV_NAME
+            export AWS_ACCESS_KEY_ID=$KODING_AWS_ACCESS_KEY_ID
+            export AWS_SECRET_ACCESS_KEY=$KODING_AWS_SECRET_ACCESS_KEY
+            ci/update-elasticbeanstalk-environment countly/base.json $(git rev-parse --short HEAD)
+
+  update-koding-countly:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: update koding-countly environment
+          environment:
+            AWS_DEFAULT_REGION: us-east-1
+            AWS_EB_APP_NAME: koding
+            AWS_EB_ENV_NAME: koding-countly
+          command: |
+            export AWS_DEFAULT_REGION AWS_EB_APP_NAME AWS_EB_ENV_NAME
+            export AWS_ACCESS_KEY_ID=$KODING_AWS_ACCESS_KEY_ID
+            export AWS_SECRET_ACCESS_KEY=$KODING_AWS_SECRET_ACCESS_KEY
+            ci/update-elasticbeanstalk-environment countly/base.json $(git rev-parse --short HEAD)
 
 workflows:
   version: 2
-  build_and_deploy:
+  build_and_deploy_dev:
     jobs:
       - build
-      - packer-cihangir
-      - packer-env
+      - packer-base
+      - packer-monitoring
+      - packer-druid
+      - packer-kafka
+      - packer-zookeeper
+      - packer-countly
+      - update-koding-sandbox:
+          requires:
+            - packer-base
+      - update-koding-proxy-dev-us-e-1-v2:
+          requires:
+            - packer-base
+      - update-koding-monitoring:
+          requires:
+            - packer-monitoring
+      - update-kodingdev-countly:
+          requires:
+            - packer-countly
+
+      
