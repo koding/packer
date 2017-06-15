@@ -3,7 +3,8 @@ version: 2
 defaults: &defaults
   docker:
     - image: koding/circle@sha256:76df7d9600f32d5c61b847e5c07e35a4332624097fe17681d618f1fcf97fb5c6
-
+  working_directory: ~/packer
+  
 jobs:
   build:
     <<: *defaults
