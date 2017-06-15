@@ -286,8 +286,6 @@ jobs:
             AWS_EB_ENV_NAME: koding-proxy-dev-us-e-1-v2
           command: |
             export AWS_DEFAULT_REGION AWS_EB_APP_NAME AWS_EB_ENV_NAME
-            export AWS_ACCESS_KEY_ID=$KODING_AWS_ACCESS_KEY_ID
-            export AWS_SECRET_ACCESS_KEY=$KODING_AWS_SECRET_ACCESS_KEY
             ci/update-elasticbeanstalk-environment base/base.json $(git rev-parse --short HEAD)
 
   update-koding-monitoring:
