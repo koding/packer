@@ -9,7 +9,7 @@ PROVISION_USER=$SUDO_USER
 ## Add third party repositories
 
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-echo 'deb http://dl.google.com/linux/chrome/deb/ stable main' > /etc/apt/sources.list.d/google.list
+echo 'deb http://dl.google.com/linux/chrome/deb/ stable main' >/etc/apt/sources.list.d/google.list
 
 add-apt-repository -y ppa:nginx/stable
 
@@ -21,7 +21,6 @@ apt-get update
 
 apt-get upgrade -y
 apt-get dist-upgrade -y
-
 
 # Install essential dependencies
 
@@ -59,13 +58,12 @@ pip install supervisor
 
 pip install s3cmd
 
-
 ## firefox
 
 apt-get install -y libgtk-3-0 libasound2
 
-curl --silent https://ftp.mozilla.org/pub/firefox/releases/46.0/linux-x86_64/en-US/firefox-46.0.tar.bz2 |
-  tar --extract --bzip2 --directory /opt/
+curl --silent https://ftp.mozilla.org/pub/firefox/releases/46.0/linux-x86_64/en-US/firefox-46.0.tar.bz2 \
+	| tar --extract --bzip2 --directory /opt/
 
 ln --force --symbolic /opt/firefox/firefox /usr/bin/firefox
 
@@ -75,9 +73,9 @@ NODE_VERSION="v6.9.4"
 NODE_NAME="node-$NODE_VERSION-linux-x64"
 NODE_URL="https://nodejs.org/dist/$NODE_VERSION/$NODE_NAME.tar.xz"
 
-curl --silent $NODE_URL | \
-  tar --extract --xz --strip-components=1 --directory /usr/local \
-      $NODE_NAME/{bin,include,lib,share}
+curl --silent $NODE_URL \
+	| tar --extract --xz --strip-components=1 --directory /usr/local \
+		$NODE_NAME/{bin,include,lib,share}
 
 ## Update npm
 
@@ -88,19 +86,16 @@ npm install --global npm@4.0.5
 npm install --global coffee-script@1.8.0
 npm install --global gulp gulp-coffee
 
-
 # Install golang
 
 wget https://godeb.s3.amazonaws.com/godeb-amd64.tar.gz
 tar xfz godeb-amd64.tar.gz
 ./godeb install 1.8
 
-
 # Install docker-engine
 
 wget -qO- https://get.docker.com/ | sh
 usermod -aG docker $PROVISION_USER
-
 
 # Install test stack essentials
 
@@ -128,7 +123,6 @@ make install
 
 x11vnc --version
 
-
 # Configure system environment
 
 ## git
@@ -145,7 +139,6 @@ cp $HOME/.gitconfig ~root/
 update-rc.d nginx disable all
 service nginx stop
 
-
 # Initialize working environment
 
 REPOSITORY_PATH=/opt/koding
@@ -153,11 +146,9 @@ REPOSITORY_PATH=/opt/koding
 mkdir $REPOSITORY_PATH
 chown $PROVISION_USER:$PROVISION_USER $REPOSITORY_PATH
 
-
 # Cleanup
 
 rm -rf $HOME/.npm
-
 
 # File variables
 

@@ -2,7 +2,7 @@
 
 # yum
 
-echo "assumeyes=1" >> /etc/yum.conf
+echo "assumeyes=1" >>/etc/yum.conf
 
 # UPGRADE SYSTEM
 
@@ -35,21 +35,19 @@ sysctl -p /etc/sysctl.d/network.conf
 # only files that ends with *.conf will be read by the OS.
 
 # sets system-wide file descriptors (FD) limits
-echo 'fs.file-max = 2000000' > /etc/sysctl.d/file-max.conf
+echo 'fs.file-max = 2000000' >/etc/sysctl.d/file-max.conf
 sysctl -p /etc/sysctl.d/file-max.conf
 
 # user/process specific limits
-echo '* soft nofile 65000' > /etc/security/limits.d/nofile.conf
-echo '* hard nofile 65000' >> /etc/security/limits.d/nofile.conf
-echo 'root soft nofile 65000' >> /etc/security/limits.d/nofile.conf
-echo 'root hard nofile 65000' >> /etc/security/limits.d/nofile.conf
-
+echo '* soft nofile 65000' >/etc/security/limits.d/nofile.conf
+echo '* hard nofile 65000' >>/etc/security/limits.d/nofile.conf
+echo 'root soft nofile 65000' >>/etc/security/limits.d/nofile.conf
+echo 'root hard nofile 65000' >>/etc/security/limits.d/nofile.conf
 
 ## folders
 mkdir -p /opt
 mkdir -p /etc/sysconfig
 mkdir -p /etc/profile.d
-
 
 ## hosts file
 

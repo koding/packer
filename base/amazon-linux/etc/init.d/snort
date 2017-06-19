@@ -40,90 +40,92 @@ PID_FILE=/var/run/snort_eth0.pid
 # Convert the /etc/sysconfig/snort settings to something snort can
 # use on the startup line.
 if [ "$ALERTMODE"X = "X" ]; then
-   ALERTMODE=""
+	ALERTMODE=""
 else
-   ALERTMODE="-A $ALERTMODE"
+	ALERTMODE="-A $ALERTMODE"
 fi
 
 if [ "$USER"X = "X" ]; then
-   USER="snort"
+	USER="snort"
 fi
 
 if [ "$GROUP"X = "X" ]; then
-   GROUP="snort"
+	GROUP="snort"
 fi
 
 if [ "$BINARY_LOG"X = "1X" ]; then
-   BINARY_LOG="-b"
+	BINARY_LOG="-b"
 else
-   BINARY_LOG=""
+	BINARY_LOG=""
 fi
 
 if [ "$LINK_LAYER"X = "1X" ]; then
-   LINK_LAYER="-e"
+	LINK_LAYER="-e"
 else
-   LINK_LAYER=""
+	LINK_LAYER=""
 fi
 
 if [ "$CONF"X = "X" ]; then
-   CONF="-c /etc/snort/snort.conf"
+	CONF="-c /etc/snort/snort.conf"
 else
-   CONF="-c $CONF"
+	CONF="-c $CONF"
 fi
 
 if [ "$INTERFACE"X = "X" ]; then
-   INTERFACE="-i eth0"
-   PID_FILE="/var/run/snort_eth0.pid"
+	INTERFACE="-i eth0"
+	PID_FILE="/var/run/snort_eth0.pid"
 else
-   PID_FILE="/var/run/snort_$INTERFACE.pid"
-   INTERFACE="-i $INTERFACE"
+	PID_FILE="/var/run/snort_$INTERFACE.pid"
+	INTERFACE="-i $INTERFACE"
 fi
 
 if [ "$DUMP_APP"X = "1X" ]; then
-   DUMP_APP="-d"
+	DUMP_APP="-d"
 else
-   DUMP_APP=""
+	DUMP_APP=""
 fi
 
 if [ "$NO_PACKET_LOG"X = "1X" ]; then
-   NO_PACKET_LOG="-N"
+	NO_PACKET_LOG="-N"
 else
-   NO_PACKET_LOG=""
+	NO_PACKET_LOG=""
 fi
 
 if [ "$PRINT_INTERFACE"X = "1X" ]; then
-   PRINT_INTERFACE="-I"
+	PRINT_INTERFACE="-I"
 else
-   PRINT_INTERFACE=""
+	PRINT_INTERFACE=""
 fi
 
 if [ "$PASS_FIRST"X = "1X" ]; then
-   PASS_FIRST="-o"
+	PASS_FIRST="-o"
 else
-   PASS_FIRST=""
+	PASS_FIRST=""
 fi
 
 if [ "$LOGDIR"X = "X" ]; then
-   LOGDIR=/var/log/snort
+	LOGDIR=/var/log/snort
 fi
 
 # These are used by the 'stats' option
 if [ "$SYSLOG"X = "X" ]; then
-   SYSLOG=/var/log/messages
+	SYSLOG=/var/log/messages
 fi
 
 if [ "$SECS"X = "X" ]; then
-   SECS=5
+	SECS=5
 fi
 
 if [ ! "$BPFFILE"X = "X" ]; then
-   BPFFILE="-F $BPFFILE"
+	BPFFILE="-F $BPFFILE"
 fi
 
-runlevel=$(set -- $(runlevel); eval "echo \$$#" )
+runlevel=$(
+	set -- $(runlevel)
+	eval "echo \$$#"
+)
 
-start()
-{
+start() {
 	[ -x $SNORTD ] || exit 5
 
 	echo -n $"Starting $prog: "
@@ -134,21 +136,20 @@ start()
 	return $RETVAL
 }
 
-stop()
-{
+stop() {
 	echo -n $"Stopping $prog: "
 	killproc $SNORTD
 	if [ -e $PID_FILE ]; then
-	    chown -R $USER:$GROUP $PID_FILE &&
-	    rm -f $PID_FILE
+		chown -R $USER:$GROUP $PID_FILE \
+			&& rm -f $PID_FILE
 	fi
 	RETVAL=$?
 	# if we are in halt or reboot runlevel kill all running sessions
 	# so the TCP connections are closed cleanly
-	if [ "x$runlevel" = x0 -o "x$runlevel" = x6 ] ; then
-	    trap '' TERM
-	    killall $prog 2>/dev/null
-	    trap TERM
+	if [ "x$runlevel" = x0 -o "x$runlevel" = x6 ]; then
+		trap '' TERM
+		killall $prog 2>/dev/null
+		trap TERM
 	fi
 	[ $RETVAL -eq 0 ] && rm -f $lockfile
 	echo
@@ -186,12 +187,13 @@ case "$1" in
 	status)
 		rh_status
 		RETVAL=$?
-		if [ $RETVAL -eq 3 -a -f $lockfile ] ; then
+		if [ $RETVAL -eq 3 -a -f $lockfile ]; then
 			RETVAL=2
 		fi
 		;;
 	*)
 		echo $"Usage: $0 {start|stop|restart|status}"
 		RETVAL=2
+		;;
 esac
 exit $RETVAL
