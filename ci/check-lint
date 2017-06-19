@@ -6,7 +6,7 @@ set -o nounset
 
 SHFMT_URL="https://github.com/mvdan/sh/releases/download/v1.3.1/shfmt_v1.3.1_linux_amd64"
 if ! command -v shfmt; then
-	curl -sSL "${SHFMT_URL}" -o "${HOME}/bin/shfmt"
+	sudo curl -sSL "${SHFMT_URL}" -o "${HOME}/bin/shfmt"
 	chmod +x "${HOME}/bin/shfmt"
 fi
 [[ -z $(shfmt -l .) ]] || shfmt -l . && exit 1
