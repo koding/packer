@@ -15,4 +15,3 @@ export EXBT_AWS_SECRET_KEY=${EXBT_AWS_SECRET_KEY:-$AWS_SECRET_KEY}
 export EXBT_S3_BACKUP=${EXBT_S3_BACKUP:-true}
 export EXBT_S3_BACKUP_PATH=${EXBT_S3_BACKUP_PATH:-kodingdev-exhibitor:exhibitor}
 export EXBT_S3_BACKUP_PREFIX=${EXBT_S3_BACKUP_PREFIX:-exhibitor-backup}
-

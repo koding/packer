@@ -1,0 +1,16 @@
+#!/bin/bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+# download shfmt is not exists
+if [[ ! -f /tmp/shfmt ]]; then
+	export OS_NAME="linux"
+	[[ "${OSTYPE//[0-9.]/}" == "darwin" ]] && OS_NAME="darwin"
+	SHFMT_URL="https://github.com/mvdan/sh/releases/download/v1.3.1/shfmt_v1.3.1_${OS_NAME}_amd64"
+	curl -sSL "${SHFMT_URL}" -o "/tmp/shfmt"
+	chmod +x "/tmp/shfmt"
+fi
+
+[[ -z $(/tmp/shfmt -l .) ]] || (/tmp/shfmt -l . && echo "apply shfmt -l -w . before sending a PR" && exit 1)

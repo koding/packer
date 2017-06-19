@@ -1,15 +1,23 @@
 version: 2
 
+
 defaults: &defaults
   docker:
     - image: koding/circle@sha256:76df7d9600f32d5c61b847e5c07e35a4332624097fe17681d618f1fcf97fb5c6
   working_directory: ~/packer
+
 
 jobs:
   build:
     <<: *defaults
     steps:
       - checkout
+      - run:
+          name: check bash formattings
+          working_directory: ~/packer
+          command: ./ci/check-lint
+
+
   packer-base:
     <<: *defaults
     steps:
@@ -44,6 +52,7 @@ jobs:
             [[ "$CIRCLE_BRANCH" == "master" ]] && exit 0
             ../ci/cleanup packer-manifest.json
 
+
   packer-monitoring:
     <<: *defaults
     steps:
@@ -77,6 +86,7 @@ jobs:
             [[ "$CIRCLE_BRANCH" == "master" ]] && exit 0
             ../ci/cleanup packer-manifest.json
 
+
   packer-druid:
     <<: *defaults
     steps:
@@ -97,6 +107,7 @@ jobs:
           command: |
             [[ "$CIRCLE_BRANCH" == "master" ]] && exit 0
             ../ci/cleanup packer-manifest.json
+
 
   packer-kafka:
     <<: *defaults
@@ -119,6 +130,7 @@ jobs:
             [[ "$CIRCLE_BRANCH" == "master" ]] && exit 0
             ../ci/cleanup packer-manifest.json
 
+
   packer-zookeeper:
     <<: *defaults
     steps:
@@ -139,6 +151,7 @@ jobs:
           command: |
             [[ "$CIRCLE_BRANCH" == "master" ]] && exit 0
             ../ci/cleanup packer-manifest.json
+
 
   packer-countly:
     <<: *defaults
@@ -288,6 +301,7 @@ jobs:
             export AWS_DEFAULT_REGION AWS_EB_APP_NAME AWS_EB_ENV_NAME
             ci/update-elasticbeanstalk-environment base/base.json $(git rev-parse --short HEAD)
 
+
   update-koding-monitoring:
     <<: *defaults
     steps:
@@ -303,6 +317,7 @@ jobs:
             export AWS_ACCESS_KEY_ID=$KODING_AWS_ACCESS_KEY_ID
             export AWS_SECRET_ACCESS_KEY=$KODING_AWS_SECRET_ACCESS_KEY
             ci/update-elasticbeanstalk-environment monitoring/base.json $(git rev-parse --short HEAD)
+
 
   update-kodingdev-countly:
     <<: *defaults
@@ -320,6 +335,7 @@ jobs:
             export AWS_SECRET_ACCESS_KEY=$KODING_AWS_SECRET_ACCESS_KEY
             ci/update-elasticbeanstalk-environment countly/base.json $(git rev-parse --short HEAD)
 
+
   update-koding-countly:
     <<: *defaults
     steps:
@@ -336,28 +352,52 @@ jobs:
             export AWS_SECRET_ACCESS_KEY=$KODING_AWS_SECRET_ACCESS_KEY
             ci/update-elasticbeanstalk-environment countly/base.json $(git rev-parse --short HEAD)
 
+
 workflows:
   version: 2
   build_and_deploy_dev:
     jobs:
       - build
-      - packer-base
-      - packer-monitoring
-      - packer-druid
-      - packer-kafka
-      - packer-zookeeper
-      - packer-countly
+      - packer-base:
+          requires:
+            - build      
+      - packer-monitoring:
+          requires:
+            - build      
+      - packer-druid:
+          requires:
+            - build      
+      - packer-kafka:
+          requires:
+            - build      
+      - packer-zookeeper:
+          requires:
+            - build      
+      - packer-countly:
+          requires:
+            - build      
       - update-koding-sandbox:
           requires:
             - packer-base
+          filters:
+            branches:
+              only: master
       - update-koding-proxy-dev-us-e-1-v2:
           requires:
             - packer-base
+          filters:
+            branches:
+              only: master
       - update-koding-monitoring:
           requires:
             - packer-monitoring
+          filters:
+            branches:
+              only: master
       - update-kodingdev-countly:
           requires:
             - packer-countly
-
+          filters:
+            branches:
+              only: master
       

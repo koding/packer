@@ -17,13 +17,11 @@ npm install --unsafe-perm
 ./go/build.sh
 sudo ./run buildservices force || :
 
-
 # Cleanup
 
 git clean -fdX
 
 exit 0
-
 
 # File variables
 
