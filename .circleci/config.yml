@@ -13,8 +13,10 @@ jobs:
     steps:
       - checkout
       - run:
-        working_directory: ~/packer
-        command: ./ci/check-lint
+          name: check bash formattings
+          working_directory: ~/packer
+          command: ./ci/check-lint
+
 
   packer-base:
     <<: *defaults
