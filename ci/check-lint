@@ -13,4 +13,4 @@ if [[ ! -f /tmp/shfmt ]]; then
 	chmod +x "/tmp/shfmt"
 fi
 
-[[ -z $(/tmp/shfmt -l .) ]] || /tmp/shfmt -l . && exit 1
+[[ -z $(/tmp/shfmt -l .) ]] || /tmp/shfmt -l . && echo "apply shfmt -l -w . before sending a PR" && exit 1
