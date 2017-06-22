@@ -177,6 +177,30 @@ jobs:
             [[ "$CIRCLE_BRANCH" == "master" ]] && exit 0
             ../ci/cleanup packer-manifest.json
 
+  packer-ethereum:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          working_directory: ethereum
+          command: env && exit 1
+      - run:
+          working_directory: ethereum
+          command: packer validate base.json
+      - run:
+          name: packer build base.json
+          working_directory: ethereum
+          no_output_timeout: 30m
+          command: |
+            export AWS_VPC_ID=$PACKER_BASE_AWS_VPC_ID AWS_SUBNET_ID=$PACKER_BASE_AWS_SUBNET_ID
+            ../ci/build-packer-template base.json
+      - run:
+          name: cleanup
+          working_directory: ethereum
+          command: |
+            [[ "$CIRCLE_BRANCH" == "master" ]] && exit 0
+            ../ci/cleanup packer-manifest.json
+
 
   update-koding-sandbox:
     <<: *defaults
