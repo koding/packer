@@ -159,7 +159,7 @@ jobs:
       - checkout
       - run:
           working_directory: countly
-          command: packer validate base.json
+          command: packer validate base.json          
       - run:
           name: packer build base.json
           working_directory: countly
@@ -170,13 +170,6 @@ jobs:
             export AWS_VPC_ID=$PACKER_BASE_AWS_VPC_ID AWS_SUBNET_ID=$PACKER_BASE_AWS_SUBNET_ID
             export COUNTLY_BUCKET
             ../ci/build-packer-template base.json
-      - run:
-          name: update kodingdev-countly environment
-          command: |
-            [[ "$CIRCLE_BRANCH" == "master" ]] || exit 0
-            curl --user ${CIRCLE_API_TOKEN}: \
-                 --data build_parameters[CIRCLE_JOB]=kodingdev-countly \
-                 https://circleci.com/api/v1.1/project/github/koding/infra/tree/master
       - run:
           name: cleanup
           working_directory: countly
