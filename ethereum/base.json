@@ -60,9 +60,7 @@
         {
             "type": "shell",
             "environment_vars": [
-                "SCRIPTS_DIR=/opt/ami-scripts",
-                "NODE_VERSION=v8.1.2",
-                "NPM_VERSION=5.0.3"
+                "SCRIPTS_DIR=/opt/ami-scripts"
             ],
             "execute_command": "{{ .Vars }} sudo -E /bin/bash -o errexit -o xtrace {{ .Path }}",
             "inline": [
