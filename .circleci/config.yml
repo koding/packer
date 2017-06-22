@@ -159,7 +159,7 @@ jobs:
       - checkout
       - run:
           working_directory: countly
-          command: packer validate base.json          
+          command: packer validate base.json
       - run:
           name: packer build base.json
           working_directory: countly
@@ -374,56 +374,52 @@ workflows:
   build_ethereum:
     jobs:
       - build
+
+  build_and_deploy_dev:
+    jobs:
+      - build
+      - packer-base:
+          requires:
+            - build
+      - packer-monitoring:
+          requires:
+            - build
+      - packer-druid:
+          requires:
+            - build
+      - packer-kafka:
+          requires:
+            - build
+      - packer-zookeeper:
+          requires:
+            - build
+      - packer-countly:
+          requires:
+            - build
       - packer-ethereum:
           requires:
             - build
-
-
-
-# workflows:
-#   version: 2
-#   build_and_deploy_dev:
-#     jobs:
-#       - build
-#       - packer-base:
-#           requires:
-#             - build      
-#       - packer-monitoring:
-#           requires:
-#             - build      
-#       - packer-druid:
-#           requires:
-#             - build      
-#       - packer-kafka:
-#           requires:
-#             - build      
-#       - packer-zookeeper:
-#           requires:
-#             - build      
-#       - packer-countly:
-#           requires:
-#             - build      
-#       - update-koding-sandbox:
-#           requires:
-#             - packer-base
-#           filters:
-#             branches:
-#               only: master
-#       - update-koding-proxy-dev-us-e-1-v2:
-#           requires:
-#             - packer-base
-#           filters:
-#             branches:
-#               only: master
-#       - update-koding-monitoring:
-#           requires:
-#             - packer-monitoring
-#           filters:
-#             branches:
-#               only: master
-#       - update-kodingdev-countly:
-#           requires:
-#             - packer-countly
-#           filters:
-#             branches:
-#               only: master
+      - update-koding-sandbox:
+          requires:
+            - packer-base
+          filters:
+            branches:
+              only: master
+      - update-koding-proxy-dev-us-e-1-v2:
+          requires:
+            - packer-base
+          filters:
+            branches:
+              only: master
+      - update-koding-monitoring:
+          requires:
+            - packer-monitoring
+          filters:
+            branches:
+              only: master
+      - update-kodingdev-countly:
+          requires:
+            - packer-countly
+          filters:
+            branches:
+              only: master
