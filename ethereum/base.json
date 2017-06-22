@@ -67,13 +67,7 @@
             "execute_command": "{{ .Vars }} sudo -E /bin/bash -o errexit -o xtrace {{ .Path }}",
             "inline": [
                 "mv /tmp/ami-scripts /opt/ami-scripts",
-                "mv /tmp/supervisord_env.sh /etc/sysconfig/supervisord",
-                "mv /tmp/supervisord.conf /etc/supervisord.conf",
-                "source /opt/ami-scripts/export_env_vars.sh",
-                "/opt/ami-scripts/000_configure_server.sh",
-                "/opt/ami-scripts/000_install_base.sh",
-                "/opt/ami-scripts/090_install_ethereum.sh",
-                "/opt/ami-scripts/900_cleanup.sh"
+                "/opt/ami-scripts/110_install_ethereum.sh"
             ],
             "skip_clean": true
         }
