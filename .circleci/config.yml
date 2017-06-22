@@ -183,16 +183,15 @@ jobs:
       - checkout
       - run:
           working_directory: ethereum
-          command: env && exit 1
-      - run:
-          working_directory: ethereum
           command: packer validate base.json
       - run:
           name: packer build base.json
           working_directory: ethereum
           no_output_timeout: 30m
           command: |
-            export AWS_VPC_ID=$PACKER_BASE_AWS_VPC_ID AWS_SUBNET_ID=$PACKER_BASE_AWS_SUBNET_ID
+            export AWS_VPC_ID=$PACKER_BASE_AWS_VPC_ID 
+            export AWS_SUBNET_ID=$PACKER_BASE_AWS_SUBNET_ID
+            export AWS_SOURCE_AMI=ami-d15a75c7
             ../ci/build-packer-template base.json
       - run:
           name: cleanup
