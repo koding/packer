@@ -22,16 +22,7 @@ export PAPERTRAIL_PORT=$(echo "$PAPERTRAIL_DESTINATION" | awk --field-separator 
 echo "export PAPERTRAIL_HOST=$PAPERTRAIL_HOST" >/etc/profile.d/papertrail.sh
 echo "export PAPERTRAIL_PORT=$PAPERTRAIL_PORT" >>/etc/profile.d/papertrail.sh
 
-# copy our config
-[[ -f $EB_APP_DEPLOY_DIR/deployment/papertrail.yml ]] && cp $EB_APP_DEPLOY_DIR/deployment/papertrail.yml /etc/log_files.yml && echo "copied log_files.yml"
-
 CURL_PARAMS="--silent --output /dev/null --write-out %{http_code}"
-
-restart() {
-	echo "restarting papertrail.."
-	/sbin/service remote_syslog stop || echo papertrail is not running
-	/sbin/service remote_syslog start
-}
 
 # check if we already registered to papertrail
 RESPONSE_CODE=$(curl $CURL_PARAMS -H "X-Papertrail-Token: $PAPERTRAIL_TOKEN" https://papertrailapp.com/api/v1/systems/$HOSTNAME.json)
@@ -48,5 +39,3 @@ if [[ $? != 0 || $RESPONSE_CODE != 200 ]]; then
 	echo "could not register to papertrail"
 	exit 1
 fi
-
-restart
