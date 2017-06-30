@@ -171,15 +171,31 @@ jobs:
             export COUNTLY_BUCKET
             ../ci/build-packer-template base.json
       - run:
-          name: update kodingdev-countly environment
-          command: |
-            [[ "$CIRCLE_BRANCH" == "master" ]] || exit 0
-            curl --user ${CIRCLE_API_TOKEN}: \
-                 --data build_parameters[CIRCLE_JOB]=kodingdev-countly \
-                 https://circleci.com/api/v1.1/project/github/koding/infra/tree/master
-      - run:
           name: cleanup
           working_directory: countly
+          command: |
+            [[ "$CIRCLE_BRANCH" == "master" ]] && exit 0
+            ../ci/cleanup packer-manifest.json
+
+  packer-ethereum:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          working_directory: ethereum
+          command: packer validate base.json
+      - run:
+          name: packer build base.json
+          working_directory: ethereum
+          no_output_timeout: 30m
+          command: |
+            export AWS_VPC_ID=$PACKER_BASE_AWS_VPC_ID 
+            export AWS_SUBNET_ID=$PACKER_BASE_AWS_SUBNET_ID
+            export AWS_SOURCE_AMI=ami-d15a75c7
+            ../ci/build-packer-template base.json
+      - run:
+          name: cleanup
+          working_directory: ethereum
           command: |
             [[ "$CIRCLE_BRANCH" == "master" ]] && exit 0
             ../ci/cleanup packer-manifest.json
@@ -360,22 +376,25 @@ workflows:
       - build
       - packer-base:
           requires:
-            - build      
+            - build
       - packer-monitoring:
           requires:
-            - build      
+            - build
       - packer-druid:
           requires:
-            - build      
+            - build
       - packer-kafka:
           requires:
-            - build      
+            - build
       - packer-zookeeper:
           requires:
-            - build      
+            - build
       - packer-countly:
           requires:
-            - build      
+            - build
+      - packer-ethereum:
+          requires:
+            - build
       - update-koding-sandbox:
           requires:
             - packer-base
@@ -400,4 +419,3 @@ workflows:
           filters:
             branches:
               only: master
-      

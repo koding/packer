@@ -11,7 +11,7 @@ yum upgrade
 
 # System-wide configuration
 
-ln -fs /usr/share/zoneinfo/UTC /etc/localtime
+ln --symbolic --force /usr/share/zoneinfo/UTC /etc/localtime
 
 ## Kernel parameters
 

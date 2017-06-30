@@ -1,0 +1,78 @@
+{
+    "variables": {
+        "aws_access_key": "{{env `AWS_ACCESS_KEY_ID`}}",
+        "aws_secret_key": "{{env `AWS_SECRET_ACCESS_KEY`}}",
+        "aws_vpc_id": "{{env `AWS_VPC_ID`}}",
+        "aws_subnet_id": "{{env `AWS_SUBNET_ID`}}",
+        "region": "us-east-1",
+        "source_ami": "{{env `AWS_SOURCE_AMI`}}",
+        "instance_type": "m3.xlarge",
+        "ami_name": "koding-ethereum",
+        "ami_users": "616271189586,845625340818",
+        "ami_description": "ethereum AMI"
+    },
+    "builders": [
+        {
+            "type": "amazon-ebs",
+            "access_key": "{{user `aws_access_key_id`}}",
+            "secret_key": "{{user `aws_secret_access_key`}}",
+            "region": "{{user `region`}}",
+            "vpc_id": "{{user `aws_vpc_id`}}",
+            "subnet_id": "{{user `aws_subnet_id`}}",
+            "source_ami": "{{user `source_ami`}}",
+            "instance_type": "{{user `instance_type`}}",
+            "ssh_username": "ubuntu",
+            "ssh_timeout": "600s",
+            "associate_public_ip_address": true,
+            "tags": {
+                "Name": "ethereum",
+                "branch": "{{user `branch`}}",
+                "git_revision": "{{user `git_revision`}}"
+            },
+            "ami_name": "{{user `ami_name`}}-{{user `git_revision`}}",
+            "ami_users": "{{user `ami_users`}}",
+            "ami_description": "{{user `ami_description`}}",
+            "ami_block_device_mappings": [
+                {
+                    "device_name": "/dev/xvda",
+                    "volume_size": 12,
+                    "delete_on_termination": true
+                }
+            ],
+            "user_data_file": "../base/user_data.amazon-ebs"
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "inline": [
+                "sudo mkdir -p /opt",
+                "sudo mkdir -p /etc/sysconfig",
+                "sudo mkdir -p /etc/profile.d"
+            ],
+            "skip_clean": true
+        },
+        {
+            "type": "file",
+            "source": "../scripts",
+            "destination": "/tmp/ami-scripts"
+        },
+        {
+            "type": "shell",
+            "environment_vars": [
+                "SCRIPTS_DIR=/opt/ami-scripts"
+            ],
+            "execute_command": "{{ .Vars }} sudo -E /bin/bash -o errexit -o xtrace {{ .Path }}",
+            "inline": [
+                "mv /tmp/ami-scripts /opt/ami-scripts",
+                "/opt/ami-scripts/110_install_ethereum.sh"
+            ],
+            "skip_clean": true
+        }
+    ],
+    "post-processors": [
+        {
+            "type": "manifest"
+        }
+    ]
+}
