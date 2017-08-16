@@ -46,6 +46,8 @@ server=8.8.8.8
 server=8.8.4.4
 EOF
 
+service dnsmasq restart
+
 sed --in-place --expression 's/#prepend \(domain-name-servers 127\.0\.0\.1\)/prepend \1/' /etc/dhcp/dhclient.conf
 
 ## nginx
