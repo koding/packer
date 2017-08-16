@@ -11,6 +11,7 @@ PROVISION_USER=$SUDO_USER
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 echo 'deb http://dl.google.com/linux/chrome/deb/ stable main' >/etc/apt/sources.list.d/google.list
 
+add-apt-repository -y ppa:git-core/ppa
 add-apt-repository -y ppa:nginx/stable
 
 ## Update package repositories
@@ -31,6 +32,23 @@ apt-get install -y rlwrap libev-dev libev4 libxml2-dev libssl-dev
 apt-get install -y libgif-dev libjpeg-dev libcairo2-dev graphicsmagick
 apt-get install -y python-pip
 apt-get install -y redis-tools
+
+## dnsmasq
+
+apt-get install -y dnsmasq
+
+cat - >/etc/dnsmasq.d/xip.io <<EOF
+address=/.xip.io/127.0.0.1
+EOF
+
+cat - >/etc/dnsmasq.d/google-dns <<EOF
+server=8.8.8.8
+server=8.8.4.4
+EOF
+
+service dnsmasq restart
+
+sed --in-place --expression 's/#prepend \(domain-name-servers 127\.0\.0\.1\)/prepend \1/' /etc/dhcp/dhclient.conf
 
 ## nginx
 
