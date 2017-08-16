@@ -37,6 +37,8 @@ apt-get install -y redis-tools
 
 apt-get install -y dnsmasq
 
+sed --in-place --expression 's/#prepend \(domain-name-servers 127\.0\.0\.1\)/prepend \1/' /etc/dhcp/dhclient.conf
+
 ## nginx
 
 apt-get install -y nginx
