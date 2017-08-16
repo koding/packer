@@ -33,6 +33,10 @@ apt-get install -y libgif-dev libjpeg-dev libcairo2-dev graphicsmagick
 apt-get install -y python-pip
 apt-get install -y redis-tools
 
+## dnsmasq
+
+apt-get install -y dnsmasq
+
 ## nginx
 
 apt-get install -y nginx
