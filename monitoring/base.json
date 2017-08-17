@@ -67,7 +67,8 @@
         "source /opt/ami-scripts/export_env_vars.sh",
         "/opt/ami-scripts/000_install_base.sh",
         "/opt/ami-scripts/013_install_openvpn.sh",
-        "/opt/ami-scripts/051_install_postgresql.sh"
+        "/opt/ami-scripts/051_install_postgresql.sh",
+        "/opt/ami-scripts/070_install_slackin.sh"
       ],
       "skip_clean": true
     }
