@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export NODE_VERSION=${NODE_VERSION:-"v6.9.4"}
+export NODE_VERSION=${NODE_VERSION:-"v8.4.0"}
 export NODE_NAME="node-$NODE_VERSION-linux-x64"
 export NODE_URL="https://nodejs.org/dist/$NODE_VERSION/$NODE_NAME.tar.xz"
 
