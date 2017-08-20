@@ -65,8 +65,15 @@
         "/opt/ami-scripts/000_install_base.sh",
         "/opt/ami-scripts/011_install_openssl.sh",
         "/opt/ami-scripts/012_install_http2.sh",
-        "/opt/ami-scripts/100_install_countly.sh",
-        "/opt/ami-scripts/900_cleanup.sh"
+        "/opt/ami-scripts/100_install_dependencies_countly.sh"
+      ],
+      "skip_clean": true
+    },
+    {
+      "type": "shell",
+      "execute_command": "{{ .Vars }} sudo -E /bin/bash -o errexit -o xtrace {{ .Path }}",
+      "inline": [
+        "/opt/ami-scripts/110_install_countly.sh"
       ],
       "skip_clean": true
     }
