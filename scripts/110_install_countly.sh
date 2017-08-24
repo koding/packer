@@ -1,8 +1,10 @@
 #!/bin/bash
 
+source /etc/profile
+
 cd /opt/countly
 
-npm install --unsafe-perm
+npm install
 
 #configure and start nginx
 useradd www-data
