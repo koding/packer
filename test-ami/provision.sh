@@ -80,8 +80,8 @@ pip install s3cmd
 
 apt-get install -y libgtk-3-0 libasound2
 
-curl --silent https://ftp.mozilla.org/pub/firefox/releases/46.0/linux-x86_64/en-US/firefox-46.0.tar.bz2 \
-	| tar --extract --bzip2 --directory /opt/
+curl --silent https://ftp.mozilla.org/pub/firefox/releases/46.0/linux-x86_64/en-US/firefox-46.0.tar.bz2 |
+	tar --extract --bzip2 --directory /opt/
 
 ln --force --symbolic /opt/firefox/firefox /usr/bin/firefox
 
@@ -91,8 +91,8 @@ NODE_VERSION="v6.9.4"
 NODE_NAME="node-$NODE_VERSION-linux-x64"
 NODE_URL="https://nodejs.org/dist/$NODE_VERSION/$NODE_NAME.tar.xz"
 
-curl --silent $NODE_URL \
-	| tar --extract --xz --strip-components=1 --directory /usr/local \
+curl --silent $NODE_URL |
+	tar --extract --xz --strip-components=1 --directory /usr/local \
 		$NODE_NAME/{bin,include,lib,share}
 
 ## Update npm
