@@ -8,7 +8,8 @@ set -o nounset
 if [[ ! -f /tmp/shfmt ]]; then
 	export OS_NAME="linux"
 	[[ "${OSTYPE//[0-9.]/}" == "darwin" ]] && OS_NAME="darwin"
-	SHFMT_URL="https://github.com/mvdan/sh/releases/download/v1.3.1/shfmt_v1.3.1_${OS_NAME}_amd64"
+	export VERSION="v2.0.0"
+	SHFMT_URL="https://github.com/mvdan/sh/releases/download/${VERSION}/shfmt_${VERSION}_${OS_NAME}_amd64"
 	curl -sSL "${SHFMT_URL}" -o "/tmp/shfmt"
 	chmod +x "/tmp/shfmt"
 fi
