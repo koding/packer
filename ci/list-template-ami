@@ -4,19 +4,19 @@ set -o errexit
 
 while [[ "$1" != "" ]]; do
 	case $1 in
-		--template-version)
-			filter_template_version=true
-			;;
-		--git-revision)
-			filter_git_revision=true
-			;;
-		--branch)
-			shift
-			filter_branch=$1
-			;;
-		*)
-			[[ -z "$template_file" ]] && template_file=$1
-			;;
+	--template-version)
+		filter_template_version=true
+		;;
+	--git-revision)
+		filter_git_revision=true
+		;;
+	--branch)
+		shift
+		filter_branch=$1
+		;;
+	*)
+		[[ -z "$template_file" ]] && template_file=$1
+		;;
 	esac
 	shift
 done

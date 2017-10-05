@@ -7,9 +7,9 @@ set -o errexit
 [[ -f "$manifest_file" ]] || exit 1
 
 jq_filter='.builds[] | select(.builder_type == "amazon-ebs") | .artifact_id'
-jq --raw-output "$jq_filter" $manifest_file \
-	| tr ',' '\n' | tr ':' ' ' \
-	| while read -r region image_id; do
+jq --raw-output "$jq_filter" $manifest_file |
+	tr ',' '\n' | tr ':' ' ' |
+	while read -r region image_id; do
 		aws --region "$region" \
 			ec2 deregister-image --image-id "$image_id"
 	done

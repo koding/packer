@@ -13,8 +13,8 @@ fi
 function check_template_built() {
 	"$ci_dir"/list-template-ami \
 		--template-version --git-revision \
-		"$template_file" \
-		| jq --exit-status '.Images | length > 0' >/dev/null
+		"$template_file" |
+		jq --exit-status '.Images | length > 0' >/dev/null
 }
 
 check_template_built && exit 0

@@ -14,10 +14,10 @@ SNORT_DOWNLOADS="https://www.snort.org/downloads"
 DAQ_VERSION="2.0.6"
 SNORT_VERSION="2.9.8.3"
 
-curl --silent --location $SNORT_DOWNLOADS/snort/daq-$DAQ_VERSION.tar.gz \
-	| tar --extract --gunzip --file -
-curl --silent --location $SNORT_DOWNLOADS/snort/snort-$SNORT_VERSION.tar.gz \
-	| tar --extract --gunzip --file -
+curl --silent --location $SNORT_DOWNLOADS/snort/daq-$DAQ_VERSION.tar.gz |
+	tar --extract --gunzip --file -
+curl --silent --location $SNORT_DOWNLOADS/snort/snort-$SNORT_VERSION.tar.gz |
+	tar --extract --gunzip --file -
 
 pushd daq-$DAQ_VERSION
 ./configure
@@ -48,15 +48,15 @@ mkdir -p /etc/snort \
 touch /etc/snort/rules/black_list.rules \
 	/etc/snort/rules/white_list.rules
 
-curl --silent --location $SNORT_DOWNLOADS/community/community-rules.tar.gz \
-	| tar --extract --gunzip --directory /etc/snort/ --file -
+curl --silent --location $SNORT_DOWNLOADS/community/community-rules.tar.gz |
+	tar --extract --gunzip --directory /etc/snort/ --file -
 
 SNORT_OINKCODE="2056866cf2e8ca256fd75d1dd2171d973aff9f85"
 SNORT_RULES_SNAPSHOT_VERSION="2983"
 SNORT_REGISTERED_RULES_URL="https://www.snort.org/rules/snortrules-snapshot-$SNORT_RULES_SNAPSHOT_VERSION.tar.gz"
 
-curl --silent --location $SNORT_REGISTERED_RULES_URL?oinkcode=$SNORT_OINKCODE \
-	| tar --extract --gunzip --directory /etc/snort/ --file -
+curl --silent --location $SNORT_REGISTERED_RULES_URL?oinkcode=$SNORT_OINKCODE |
+	tar --extract --gunzip --directory /etc/snort/ --file -
 
 mv --no-clobber /etc/snort/etc/* /etc/snort/
 

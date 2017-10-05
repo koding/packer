@@ -20,8 +20,8 @@ fi
 
 ami_name=$ami_name_prefix-$git_revision
 
-image_id=$(aws ec2 describe-images --filter Name=name,Values=$ami_name \
-	| jq --raw-output '.Images[0].ImageId // ""')
+image_id=$(aws ec2 describe-images --filter Name=name,Values=$ami_name |
+	jq --raw-output '.Images[0].ImageId // ""')
 
 if [[ -z "$image_id" ]]; then
 	echo "error: missing ami $ami_name"
@@ -30,13 +30,13 @@ fi
 
 aws elasticbeanstalk describe-environments \
 	--application-name "$AWS_EB_APP_NAME" \
-	--environment-names "$AWS_EB_ENV_NAME" \
-	| jq --exit-status '.Environments | length > 0' >/dev/null
+	--environment-names "$AWS_EB_ENV_NAME" |
+	jq --exit-status '.Environments | length > 0' >/dev/null
 
 image_id_setting=$(aws elasticbeanstalk describe-configuration-settings \
 	--application-name $AWS_EB_APP_NAME \
-	--environment-name $AWS_EB_ENV_NAME \
-	| jq --raw-output \
+	--environment-name $AWS_EB_ENV_NAME |
+	jq --raw-output \
 		'.ConfigurationSettings[0].OptionSettings[]
 			| select(
 				.Namespace == "aws:autoscaling:launchconfiguration"

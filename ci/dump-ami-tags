@@ -15,11 +15,11 @@ manifest_file=$(jq --raw-output '.["post-processes"] | select(.type == "manifest
 [[ -f "$manifest_file" ]] || exit 1
 
 jq_filter='.builds[] | select(.builder_type == "amazon-ebs") | .artifact_id'
-jq --raw-output "$jq_filter" $manifest_file \
-	| tr ',' '\n' | tr ':' ' ' \
-	| while read -r region image_id; do
-		aws ec2 --region $region describe-images --image-ids $image_id \
-			| jq --raw-output \
+jq --raw-output "$jq_filter" $manifest_file |
+	tr ',' '\n' | tr ':' ' ' |
+	while read -r region image_id; do
+		aws ec2 --region $region describe-images --image-ids $image_id |
+			jq --raw-output \
 				'[ .Images[] | .Tags[]
           | "Key=" + .Key + ",Value=\"" + .Value + "\"" ]
           | join(" ")' >tags-$image_id
