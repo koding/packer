@@ -140,8 +140,8 @@ stop() {
 	echo -n $"Stopping $prog: "
 	killproc $SNORTD
 	if [ -e $PID_FILE ]; then
-		chown -R $USER:$GROUP $PID_FILE \
-			&& rm -f $PID_FILE
+		chown -R $USER:$GROUP $PID_FILE &&
+			rm -f $PID_FILE
 	fi
 	RETVAL=$?
 	# if we are in halt or reboot runlevel kill all running sessions
@@ -170,30 +170,30 @@ rh_status_q() {
 }
 
 case "$1" in
-	start)
-		rh_status_q && exit 0
-		start
-		;;
-	stop)
-		if ! rh_status_q; then
-			rm -f $lockfile
-			exit 0
-		fi
-		stop
-		;;
-	restart)
-		restart
-		;;
-	status)
-		rh_status
-		RETVAL=$?
-		if [ $RETVAL -eq 3 -a -f $lockfile ]; then
-			RETVAL=2
-		fi
-		;;
-	*)
-		echo $"Usage: $0 {start|stop|restart|status}"
+start)
+	rh_status_q && exit 0
+	start
+	;;
+stop)
+	if ! rh_status_q; then
+		rm -f $lockfile
+		exit 0
+	fi
+	stop
+	;;
+restart)
+	restart
+	;;
+status)
+	rh_status
+	RETVAL=$?
+	if [ $RETVAL -eq 3 -a -f $lockfile ]; then
 		RETVAL=2
-		;;
+	fi
+	;;
+*)
+	echo $"Usage: $0 {start|stop|restart|status}"
+	RETVAL=2
+	;;
 esac
 exit $RETVAL
