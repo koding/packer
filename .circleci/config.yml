@@ -3,7 +3,7 @@ version: 2
 
 defaults: &defaults
   docker:
-    - image: koding/circle@sha256:76df7d9600f32d5c61b847e5c07e35a4332624097fe17681d618f1fcf97fb5c6
+    - image: koding/circle@sha256:16eb972fda89007f9e058da4330ec3486964e79b5f8143ca9e0c5019047b98a9
   working_directory: ~/packer
 
 
