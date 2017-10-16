@@ -200,6 +200,18 @@ jobs:
             [[ "$CIRCLE_BRANCH" == "master" ]] && exit 0
             ../ci/cleanup packer-manifest.json
 
+  docker-base:
+    <<: *defaults
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: build
+          working_directory: ~/packer/docker/base
+          command: |
+            docker build --tag koding/base .
+            [[ "$CIRCLE_BRANCH" != "master" ]] && exit 0
+            docker push koding/base
 
   update-koding-sandbox:
     <<: *defaults
@@ -393,6 +405,9 @@ workflows:
           requires:
             - build
       - packer-ethereum:
+          requires:
+            - build
+      - docker-base:
           requires:
             - build
       - update-koding-sandbox:
