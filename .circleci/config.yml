@@ -211,7 +211,7 @@ jobs:
           command: |
             docker build --tag koding/base .
             [[ "$CIRCLE_BRANCH" != "master" ]] && exit 0
-            docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
+            docker login --username "${DOCKER_USERNAME}" --password "${DOCKER_PASSWORD}"
             docker push koding/base
 
   update-koding-sandbox:
