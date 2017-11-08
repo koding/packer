@@ -17,7 +17,7 @@ mkdir -p /opt
 mkdir -p /etc/sysconfig
 mkdir -p /etc/profile.d
 
-./001_sysctl.sh
+command -v sysctl && ./001_sysctl.sh
 
 ## hosts file
 
