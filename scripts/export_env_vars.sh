@@ -4,7 +4,7 @@ export SHELLOPTS
 
 source /etc/profile
 
-for i in /opt/ami-scripts/env/*.sh; do
+for i in "$(dirname $BASH_SOURCE[0])"/env/*.sh; do
 	if [ -r "$i" ]; then
 		if [ "${-#*i}" != "$-" ]; then
 			. "$i"
