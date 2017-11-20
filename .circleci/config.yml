@@ -189,7 +189,7 @@ jobs:
           working_directory: ethereum
           no_output_timeout: 30m
           command: |
-            export AWS_VPC_ID=$PACKER_BASE_AWS_VPC_ID 
+            export AWS_VPC_ID=$PACKER_BASE_AWS_VPC_ID
             export AWS_SUBNET_ID=$PACKER_BASE_AWS_SUBNET_ID
             export AWS_SOURCE_AMI=ami-d15a75c7
             ../ci/build-packer-template base.json
@@ -213,6 +213,20 @@ jobs:
             [[ "$CIRCLE_BRANCH" != "master" ]] && exit 0
             docker login --username "${DOCKER_USERNAME}" --password "${DOCKER_PASSWORD}"
             docker push koding/base
+
+  docker-dev:
+    <<: *defaults
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: build
+          working_directory: ~/packer/dev
+          command: |
+            docker build --tag koding/dev --file Dockerfile ..
+            [[ "$CIRCLE_BRANCH" != "master" ]] && exit 0
+            docker login --username "${DOCKER_USERNAME}" --password "${DOCKER_PASSWORD}"
+            docker push koding/dev
 
   update-koding-sandbox:
     <<: *defaults
@@ -409,6 +423,9 @@ workflows:
           requires:
             - build
       - docker-base:
+          requires:
+            - build
+      - docker-dev:
           requires:
             - build
       - update-koding-sandbox:
