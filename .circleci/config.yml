@@ -207,9 +207,9 @@ jobs:
       - setup_remote_docker
       - run:
           name: build
-          working_directory: ~/packer/docker/base
+          working_directory: ~/packer/base
           command: |
-            docker build --tag koding/base .
+            docker build --tag koding/base --file Dockerfile ..
             [[ "$CIRCLE_BRANCH" != "master" ]] && exit 0
             docker login --username "${DOCKER_USERNAME}" --password "${DOCKER_PASSWORD}"
             docker push koding/base
